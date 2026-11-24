@@ -3,7 +3,17 @@ import { join } from "node:path";
 import { Marked } from "marked";
 
 const VERIFICATION_RELATIVE_PATH = join("content", "verification.md");
-const marked = new Marked({ gfm: true, async: false });
+const MAXIMUM_HEADING_DEPTH = 6;
+const marked = new Marked({
+  gfm: true,
+  async: false,
+  renderer: {
+    heading({ tokens, depth }) {
+      const shiftedDepth = Math.min(depth + 1, MAXIMUM_HEADING_DEPTH);
+      return `<h${shiftedDepth}>${this.parser.parseInline(tokens)}</h${shiftedDepth}>\n`;
+    },
+  },
+});
 
 export interface VerificationDocument {
   readonly html: string;

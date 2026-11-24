@@ -10,7 +10,7 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   reporter: [["list"]],
-  use: { baseURL: `http://127.0.0.1:${WEB_PORT}`, trace: "retain-on-failure" },
+  use: { baseURL: `http://127.0.0.1:${WEB_PORT}`, trace: "retain-on-failure", reducedMotion: "reduce" },
   projects: [
     { name: "mobile-360", use: { viewport: { width: 360, height: 740 } } },
     { name: "desktop-1280", use: { viewport: { width: 1280, height: 800 } } },

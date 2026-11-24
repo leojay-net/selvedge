@@ -59,7 +59,7 @@ test("containment lists refusals from the runtime", async ({ page }) => {
 
 test("proofs page shows an empty state or the record, plus reproduce commands", async ({ page }) => {
   await page.goto("/proofs");
-  await expect(page.getByText("cargo test -p selvedge-mandate")).toBeVisible();
+  await expect(page.getByText("cargo test -p selvedge-mandate").first()).toBeVisible();
 });
 
 test("activity reviews a pasted transaction", async ({ page }) => {

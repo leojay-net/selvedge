@@ -1,11 +1,15 @@
 import Link from "next/link";
 import type { ReactElement } from "react";
 import { MANDATE_PROGRAM_ADDRESS } from "@selvedge/sdk";
+import { CountUp } from "@/components/CountUp";
+import { GateDiagram } from "@/components/GateDiagram";
+import { Reveal } from "@/components/Reveal";
 import { ErrorState } from "@/components/States";
 import { fetchAllMandates, fetchProgramDeployment, mandateStatus } from "@/lib/mandates";
-import { formatUsdc } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
+
+const MICRO_UNITS_PER_USDC = 1_000_000;
 
 const GATES: ReadonlyArray<{ readonly title: string; readonly body: string }> = [
   { title: "Engine policy", body: "A deterministic pre-check mirrors the on-chain rules so an agent gets fast, typed feedback before anything is built." },
@@ -30,41 +34,58 @@ export default async function OverviewPage(): Promise<ReactElement> {
   return (
     <div className="stack">
       <section className="hero" aria-labelledby="hero-heading">
-        <p className="eyebrow">Agent platform for Solana Mobile</p>
-        <h1 id="hero-heading">Agents act only inside a mandate.</h1>
-        <p className="page-lead">
-          Every agent spends under an on-chain mandate whose limits are proven with Kani. Security agents decode, simulate and explain each transaction before you sign.
-        </p>
-        <div className="hero-actions">
-          <Link href="/agents" className="button">
-            See live mandates
-          </Link>
-          <Link href="/activity" className="button button-secondary">
-            Review a transaction
-          </Link>
+        <div className="hero-copy">
+          <p className="eyebrow hero-step" style={{ ["--step" as string]: 0 }}>Agent platform for Solana Mobile</p>
+          <h1 id="hero-heading" className="hero-step" style={{ ["--step" as string]: 1 }}>
+            Agents act only inside a mandate.
+          </h1>
+          <p className="page-lead hero-step" style={{ ["--step" as string]: 2 }}>
+            Every agent spends under an on-chain mandate whose limits are proven with Kani. Security agents decode, simulate and explain each transaction before you sign.
+          </p>
+          <div className="hero-actions hero-step" style={{ ["--step" as string]: 3 }}>
+            <Link href="/agents" className="button">
+              See live mandates
+            </Link>
+            <Link href="/activity" className="button button-secondary">
+              Review a transaction
+            </Link>
+            <Link href="/download" className="button button-secondary">
+              Get the app
+            </Link>
+          </div>
         </div>
+        <GateDiagram />
       </section>
 
-      <section aria-labelledby="live-heading" className="stack" style={{ gap: "var(--space-3)" }}>
+      <Reveal as="section" className="stack">
         <h2 id="live-heading">Live on devnet</h2>
         {overview.ok ? (
-          <div className="card">
+          <div className="card stat-card" aria-labelledby="live-heading">
             <div className="stat-grid">
               <div className="stat">
                 <span className="muted">Mandates</span>
-                <span className="stat-value">{overview.mandates.length}</span>
+                <span className="stat-value">
+                  <CountUp value={overview.mandates.length} />
+                </span>
               </div>
               <div className="stat">
                 <span className="muted">Active</span>
-                <span className="stat-value">{overview.active.length}</span>
+                <span className="stat-value">
+                  <CountUp value={overview.active.length} />
+                </span>
               </div>
               <div className="stat">
                 <span className="muted">Spent this period</span>
-                <span className="stat-value">{formatUsdc(overview.totalSpent)} USDC</span>
+                <span className="stat-value">
+                  <CountUp value={Number(overview.totalSpent) / MICRO_UNITS_PER_USDC} decimals={3} suffix=" USDC" />
+                </span>
               </div>
               <div className="stat">
                 <span className="muted">Program</span>
-                <span className="stat-value">{overview.deployment?.executable === true ? "Deployed" : "Not found"}</span>
+                <span className="stat-value status-line">
+                  <span className={overview.deployment?.executable === true ? "status-dot status-dot-live" : "status-dot"} aria-hidden="true" />
+                  {overview.deployment?.executable === true ? "Deployed" : "Not found"}
+                </span>
               </div>
             </div>
             <p className="muted">
@@ -76,16 +97,18 @@ export default async function OverviewPage(): Promise<ReactElement> {
             The devnet RPC did not answer. The rest of the dashboard still works, and this page will recover on reload.
           </ErrorState>
         )}
-      </section>
+      </Reveal>
 
       <section aria-labelledby="gates-heading" className="stack" style={{ gap: "var(--space-3)" }}>
-        <h2 id="gates-heading">Three independent gates</h2>
+        <Reveal>
+          <h2 id="gates-heading">Three independent gates</h2>
+        </Reveal>
         <ol className="steps">
-          {GATES.map((gate) => (
-            <li key={gate.title}>
+          {GATES.map((gate, gateIndex) => (
+            <Reveal as="li" order={gateIndex} key={gate.title}>
               <h3>{gate.title}</h3>
               <p>{gate.body}</p>
-            </li>
+            </Reveal>
           ))}
         </ol>
       </section>

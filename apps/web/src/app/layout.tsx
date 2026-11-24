@@ -48,7 +48,9 @@ export default function RootLayout({ children }: { readonly children: ReactNode 
             <span>
               Mandate program <code>{MANDATE_PROGRAM_ADDRESS}</code> on Solana devnet
             </span>
-            <span className="muted">MIT licensed. Open source.</span>
+            <span className="muted">
+              <Link href="/download">Get the Android app</Link>. MIT licensed. Open source.
+            </span>
           </div>
         </footer>
       </body>
