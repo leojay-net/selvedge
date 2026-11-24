@@ -15,3 +15,12 @@ Each entry: decision, reason.
 11. **Mobile architecture follows the platform.** Selvedge for Android is an MWA wallet that sits between dapps and the Seed Vault, not an interceptor of other wallets (RESEARCH.md).
 12. **Self-hosted x402 facilitator inside the gateway** with the mandate program on the smart-wallet allowlist, because third-party facilitators reject unknown wrapper programs.
 13. **Commit identity** uses the GitHub noreply address so the owner's email is not published.
+14. **Android: AGP 8.13.2 with Gradle 8.14.3, compile SDK 37.** AGP 9.x forces the new DSL and a Gradle that is not cached locally. walletlib 2.2.1 requires compile SDK 37, so the 37.0 platform was installed with sdkmanager and `android.suppressUnsupportedCompileSdk=37.0` silences the AGP 8 notice. Target SDK stays 36.
+15. **Android: AndroidX is pinned one generation behind the newest release.** Compose BOM 2026.11.01, core-ktx 1.19.1, lifecycle 2.11.1 and activity-compose 1.13.0 all require AGP 9.1 or newer (reported by `checkDebugAarMetadata`). The pins are Compose BOM 2025.12.01, core-ktx 1.17.0, lifecycle 2.10.0, activity-compose 1.12.4, fragment 1.8.9 and appcompat 1.7.1.
+16. **Android: the Kotlin engine is a pure JVM module that mirrors the TypeScript engine and is held to it by the shared vectors.** It reads `vectors/` through a Gradle path (`selvedge.vectors` system property), with no copies.
+17. **Android: minimum SDK 33.** The test wallet uses the platform Ed25519 provider, and Saga ships Android 13.
+18. **Android: screenshot tests are Compose instrumented tests (`captureToImage`) on the emulator, not Paparazzi.** Paparazzi renders with layoutlib, which does not load variable fonts the way the device does, so it would not show the real typography.
+19. **Android: Selvedge is an MWA wallet.** It cannot intercept another wallet's Seed Vault prompt. Dapps reach it over the `solana-wallet:` association URI, and it signs through the Seed Vault Wallet SDK.
+20. **Android: a clean verdict without a simulation is shown as caution.** Balance changes are unknown without simulation, so the app never labels such a transaction safe.
+21. **Android: the biometric override accepts strong biometrics only.** There is no device-credential fallback, so a danger verdict cannot be bypassed with a PIN. If no biometric is enrolled the transaction stays blocked.
+22. **Android: mandates are stored on the device and validated with the mirrored policy logic. The app does not submit them to Solana.** The agent list says so on screen.

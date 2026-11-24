@@ -60,8 +60,10 @@ android {
     }
 
     sourceSets {
-        getByName("androidTest").assets.srcDir(rootDir.resolve("../../vectors"))
+        getByName("androidTest").resources.srcDir(rootDir.resolve("../../vectors"))
         getByName("test").resources.srcDir(rootDir.resolve("../../vectors"))
+        getByName("androidTest").java.srcDir("src/sharedTest/kotlin")
+        getByName("test").java.srcDir("src/sharedTest/kotlin")
     }
 
     testOptions {
@@ -98,6 +100,10 @@ dependencies {
 
     androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation(libs.compose.ui.test.junit4)
+    androidTestImplementation(libs.compose.ui.test.accessibility)
+    androidTestImplementation(libs.serialization.json)
+    androidTestImplementation(kotlin("test-junit"))
+    androidTestImplementation(project(":engine"))
     androidTestImplementation(libs.androidx.test.ext)
     androidTestImplementation(libs.androidx.test.runner)
     debugImplementation(libs.compose.ui.test.manifest)
