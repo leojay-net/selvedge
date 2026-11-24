@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Selvedge banner</title>
+<style>
+  @font-face { font-family: "Fraunces"; src: url("../../apps/web/public/fonts/fraunces-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "Inter"; src: url("../../apps/web/public/fonts/inter-latin-wght-normal.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "JetBrains Mono"; src: url("../../apps/web/public/fonts/jetbrains-mono-latin-wght-normal.woff2") format("woff2"); font-weight: 100 800; }
+  :root { --primary: #1E3A5F; --bg: #F6F5F2; --surface: #FFFFFF; --border: #C9C5BA; --text: #46433B; --heading: #1B1A17; --danger: #B3261E; --safe: #2E6B4F; }
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1600px; height: 800px; background: var(--bg); font-family: "Inter", sans-serif; color: var(--text); display: grid; grid-template-columns: 820px 1fr; padding: 80px 96px; column-gap: 72px; overflow: hidden; }
+  .left { display: flex; flex-direction: column; justify-content: space-between; }
+  .logo { height: 64px; align-self: flex-start; }
+  h1 { font-family: "Fraunces", serif; font-weight: 600; font-size: 76px; line-height: 84px; color: var(--heading); letter-spacing: -1px; }
+  p.lead { font-size: 28px; line-height: 40px; margin-top: 28px; max-width: 700px; }
+  .facts { display: flex; gap: 40px; font-family: "JetBrains Mono", monospace; font-size: 20px; color: var(--primary); }
+  .facts span { border-top: 3px solid var(--primary); padding-top: 12px; }
+  .right { display: flex; flex-direction: column; justify-content: center; gap: 0; position: relative; }
+  .card { background: var(--surface); border: 2px solid var(--border); border-radius: 12px; padding: 26px 30px; position: relative; }
+  .card h2 { font-family: "Fraunces", serif; font-weight: 600; font-size: 32px; color: var(--heading); display: flex; justify-content: space-between; align-items: baseline; }
+  .card h2 small { font-family: "JetBrains Mono", monospace; font-size: 16px; font-weight: 500; color: var(--primary); }
+  .card p { font-size: 20px; line-height: 30px; margin-top: 8px; }
+  .link { width: 2px; height: 36px; background: var(--primary); margin-left: 54px; }
+  .card.veto { border-color: var(--danger); }
+  .card.veto h2 small { color: var(--danger); }
+  .card.mandate { border-color: var(--primary); }
+</style>
+</head>
+<body>
+  <div class="left">
+    <img class="logo" src="../logo.svg" alt="Selvedge">
+    <div>
+      <h1>Agents that act only inside a mandate.</h1>
+      <p class="lead">Spending limits enforced on Solana and proven with Kani. Every transaction is decoded, simulated and explained before you sign.</p>
+    </div>
+    <div class="facts"><span>Solana devnet</span><span>x402 payments</span><span>Seed Vault</span></div>
+  </div>
+  <div class="right">
+    <div class="card mandate"><h2>Mandate <small>on-chain</small></h2><p>Cap per period, allowlisted payees and tools, expiry, instant revoke.</p></div>
+    <div class="link"></div>
+    <div class="card"><h2>Agent <small>model plans</small></h2><p>Proposes a structured intent. Never builds, signs or runs anything itself.</p></div>
+    <div class="link"></div>
+    <div class="card veto"><h2>Veto <small>before you sign</small></h2><p>Decode, simulate, score the risk, then biometric confirmation for anything dangerous.</p></div>
+  </div>
+</body>
+</html>
