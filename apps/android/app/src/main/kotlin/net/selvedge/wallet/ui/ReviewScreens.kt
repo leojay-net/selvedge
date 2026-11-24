@@ -69,10 +69,10 @@ private fun FindingsList(flow: ReviewFlow) {
 }
 
 @Composable
-private fun ExplanationBlock(flow: ReviewFlow) {
+private fun ExplanationBlock(flow: ReviewFlow, showHeadline: Boolean = true) {
     val lines = flow.outcome.result.explanation.lines()
     Column(verticalArrangement = Arrangement.spacedBy(SelvedgeSpace.s8)) {
-        lines.take(1).forEach { headline -> BasicText(headline, style = SelvedgeType.title) }
+        if (showHeadline) lines.take(1).forEach { headline -> BasicText(headline, style = SelvedgeType.title) }
         lines.drop(1).filter { line -> line.startsWith("You ") }.forEach { movement -> BasicText(movement, style = SelvedgeType.amount) }
     }
 }
@@ -142,7 +142,7 @@ fun DangerWarningScreen(flow: ReviewFlow, state: FlowState, onDecline: () -> Uni
             Column(verticalArrangement = Arrangement.spacedBy(SelvedgeSpace.s16)) {
                 SelvedgeIcon(AppIcon.WARNING, SelvedgeColor.danger, size = 48.dp)
                 BasicText("Do not sign this transaction", style = SelvedgeType.large.copy(color = SelvedgeColor.danger), modifier = Modifier.semantics { heading() })
-                ExplanationBlock(flow)
+                ExplanationBlock(flow, showHeadline = false)
                 FindingsList(flow)
             }
         }
