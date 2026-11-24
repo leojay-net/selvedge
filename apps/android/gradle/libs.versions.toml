@@ -1,14 +1,13 @@
 [versions]
 agp = "8.13.2"
 kotlin = "2.3.21"
-composeBom = "2026.11.01"
-activityCompose = "1.13.0"
+composeBom = "2025.12.01"
+activityCompose = "1.12.4"
 biometric = "1.1.0"
-coreKtx = "1.19.1"
-lifecycle = "2.11.1"
-navigation = "2.10.2"
-fragment = "1.9.1"
-appcompat = "1.8.0"
+coreKtx = "1.17.0"
+lifecycle = "2.10.0"
+fragment = "1.8.9"
+appcompat = "1.7.1"
 coroutines = "1.11.0"
 serialization = "1.13.0"
 junit = "4.13.2"
@@ -31,7 +30,6 @@ biometric = { module = "androidx.biometric:biometric", version.ref = "biometric"
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
 lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycle" }
-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }

@@ -1,0 +1,6 @@
+-keep class com.solana.mobilewalletadapter.** { *; }
+-keep class com.solanamobile.seedvault.** { *; }
+-keepattributes *Annotation*, InnerClasses, Signature
+-keepclassmembers class net.selvedge.wallet.data.** { *; }
+-dontwarn org.bouncycastle.**
+-dontwarn javax.annotation.**
