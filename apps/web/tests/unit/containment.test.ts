@@ -12,7 +12,9 @@ afterEach(() => {
 describe("fetchContainmentLog", () => {
   it("is unconfigured without a runtime url", async () => {
     vi.stubEnv("SELVEDGE_RUNTIME_URL", "");
+    vi.spyOn(process, "cwd").mockReturnValue(mkdtempSync(join(tmpdir(), "selvedge-empty-")));
     expect(await fetchContainmentLog()).toEqual({ state: "unconfigured" });
+    vi.restoreAllMocks();
   });
 
   it("falls back to the recorded devnet run when a content file exists", async () => {
