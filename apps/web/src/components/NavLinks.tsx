@@ -11,6 +11,7 @@ const NAVIGATION: ReadonlyArray<{ readonly href: string; readonly label: string;
   { href: "/activity", label: "Activity", icon: "activity" },
   { href: "/containment", label: "Containment", icon: "containment" },
   { href: "/proofs", label: "Proofs", icon: "proofs" },
+  { href: "/download", label: "Get the app", icon: "agents" },
 ];
 
 function isCurrent(pathname: string, href: string): boolean {
