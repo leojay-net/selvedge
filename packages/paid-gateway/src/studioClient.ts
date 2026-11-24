@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const STUDIO_REQUEST_TIMEOUT_MILLISECONDS = 20_000;
+const STUDIO_REQUEST_TIMEOUT_MILLISECONDS = 150_000;
 
 const quoteResponseSchema = z.object({
   spec: z.unknown(),

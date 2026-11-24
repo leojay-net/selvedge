@@ -7,8 +7,10 @@ import { SYSTEM_PROMPT, parseAgentAction, renderPrompt } from "./actionParser.js
 const ANTHROPIC_MESSAGES_URL = "https://api.anthropic.com/v1/messages";
 const ANTHROPIC_VERSION = "2023-06-01";
 const MAXIMUM_OUTPUT_TOKENS = 600;
+const REASONING_MODEL_OUTPUT_TOKENS = 12_000;
 
 const ollamaReplySchema = z.object({ message: z.object({ content: z.string() }) });
+const openAiReplySchema = z.object({ choices: z.array(z.object({ message: z.object({ content: z.string().nullable() }) })).min(1) });
 const anthropicReplySchema = z.object({ content: z.array(z.object({ type: z.string(), text: z.string().optional() })) });
 
 export class OllamaModel implements ModelAdapter {
@@ -39,6 +41,39 @@ export class OllamaModel implements ModelAdapter {
     });
     if (!response.ok) throw new ModelProviderError("Ollama request failed", { status: response.status });
     return parseAgentAction(ollamaReplySchema.parse(await response.json()).message.content);
+  }
+}
+
+export class OpenAiCompatibleModel implements ModelAdapter {
+  readonly name: string;
+
+  constructor(
+    private readonly modelName: string,
+    private readonly baseUrl: string,
+    private readonly apiKey: string,
+    private readonly fetchImplementation: typeof fetch = fetch,
+  ) {
+    this.name = `openai-compatible:${modelName}`;
+  }
+
+  async nextAction(context: ModelContext): Promise<AgentAction> {
+    const response = await this.fetchImplementation(`${this.baseUrl}/chat/completions`, {
+      method: "POST",
+      headers: { "content-type": "application/json", authorization: `Bearer ${this.apiKey}` },
+      signal: AbortSignal.timeout(HTTP_REQUEST_TIMEOUT_MILLISECONDS),
+      body: JSON.stringify({
+        model: this.modelName,
+        max_tokens: REASONING_MODEL_OUTPUT_TOKENS,
+        temperature: 0,
+        messages: [
+          { role: "system", content: SYSTEM_PROMPT },
+          { role: "user", content: renderPrompt(context) },
+        ],
+      }),
+    });
+    if (!response.ok) throw new ModelProviderError("OpenAI-compatible request failed", { status: response.status });
+    const reply = openAiReplySchema.parse(await response.json());
+    return parseAgentAction(reply.choices[0]?.message.content ?? "");
   }
 }
 

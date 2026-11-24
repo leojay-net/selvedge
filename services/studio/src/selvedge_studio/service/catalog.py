@@ -7,6 +7,9 @@ operations are never exposed.
 
 from __future__ import annotations
 
+import os
+import shutil
+
 from selvedge_studio.media import MediaType
 from selvedge_studio.ops.catalogue import catalogue, preset_line, recipe_signature
 from selvedge_studio.ops.registry import AnyOf, OpDef, Registry, load_builtin_ops
@@ -15,6 +18,12 @@ from selvedge_studio.recipes import all_recipes
 
 GENERATED_MEDIA = frozenset({MediaType.IMAGE, MediaType.AUDIO})
 DEBUG_PREFIX = "debug."
+LIBREOFFICE_OPERATIONS = frozenset({"doc.convert", "xlsx.recalc"})
+
+
+def libreoffice_available() -> bool:
+    configured = os.environ.get("SELVEDGE_STUDIO_SOFFICE")
+    return bool(configured) or shutil.which("soffice") is not None
 
 
 def _accepts(expected: MediaType | AnyOf, available: frozenset[MediaType]) -> set[MediaType]:
@@ -37,15 +46,21 @@ def _produced_media(operation: OpDef, available: frozenset[MediaType]) -> set[Me
     return {operation.output_for([])}
 
 
-def build_exposed_registry() -> Registry:
+def build_exposed_registry(*, with_libreoffice: bool | None = None) -> Registry:
     full_registry = load_builtin_ops()
     exposed = Registry()
     available = frozenset(GENERATED_MEDIA)
+    include_office = libreoffice_available() if with_libreoffice is None else with_libreoffice
+    unavailable = frozenset() if include_office else LIBREOFFICE_OPERATIONS
     changed = True
     while changed:
         changed = False
         for operation in full_registry:
-            if operation.name.startswith(DEBUG_PREFIX) or operation.name in exposed:
+            if (
+                operation.name.startswith(DEBUG_PREFIX)
+                or operation.name in unavailable
+                or operation.name in exposed
+            ):
                 continue
             produced = _produced_media(operation, available)
             if produced is None:

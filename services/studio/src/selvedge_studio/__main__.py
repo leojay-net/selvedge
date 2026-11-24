@@ -20,7 +20,7 @@ EXIT_CONFIGURATION_ERROR = 2
 
 
 def export_schema(destination: Path) -> None:
-    schema = studio_spec_json_schema(build_exposed_registry().names())
+    schema = studio_spec_json_schema(build_exposed_registry(with_libreoffice=True).names())
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(json.dumps(schema, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 

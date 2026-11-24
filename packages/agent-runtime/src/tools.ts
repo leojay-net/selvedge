@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { STUDIO_TOOL_ID } from "./constants.js";
+import { RuntimeError } from "./errors.js";
 import type { ContainmentLog } from "./containmentLog.js";
 import type { SpendGate } from "./gates/spendGate.js";
 import type { Observation, ToolCall } from "./types.js";
@@ -120,6 +121,9 @@ export class ToolRegistry {
     try {
       return await tool.run(call.arguments);
     } catch (caught) {
+      if (caught instanceof RuntimeError) {
+        return { toolName: call.toolName, trustedSummary: `The tool failed: ${caught.message}`, untrustedContent: null };
+      }
       if (!(caught instanceof z.ZodError)) throw caught;
       this.log.record({
         gate: "tool_registry",
