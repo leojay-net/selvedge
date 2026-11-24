@@ -86,7 +86,8 @@ Requirements: Node 24.10 or later, pnpm 10.32.1, Rust 1.99.1 with the Solana and
 pnpm install --frozen-lockfile
 pnpm test                          # engine, sdk, gateway, runtime, dashboard unit tests
 pnpm verify:evidence               # re-checks every signature in this README against devnet
-cargo test -p selvedge-mandate     # 37 program tests in LiteSVM (builds target/deploy/selvedge_mandate.so first)
+anchor build                       # Anchor 1.2.2, writes target/deploy/selvedge_mandate.so
+cargo test -p selvedge-mandate     # 37 program tests in LiteSVM against that binary
 pnpm verify:proofs                 # the ten Kani harnesses (cargo-kani 0.68.0)
 (cd services/studio && uv sync && uv run pytest)
 ```
