@@ -34,6 +34,9 @@ importers:
       '@wallet-standard/app':
         specifier: 1.1.1
         version: 1.1.1
+      '@wallet-standard/base':
+        specifier: 1.1.1
+        version: 1.1.1
       '@wallet-standard/features':
         specifier: 1.1.1
         version: 1.1.1
@@ -1205,6 +1208,10 @@ packages:
   '@wallet-standard/app@1.1.1':
     resolution: {integrity: sha512-WDGwoByhP5gwHH01r5EaLgQdLVkACPCdOMQhmhn8rsm10h/siSgTorShzBxrn0ExSPof+Lu+C3TfgqBrPa1xoQ==}
     engines: {node: '>=22'}
+
+  '@wallet-standard/base@1.1.0':
+    resolution: {integrity: sha512-DJDQhjKmSNVLKWItoKThJS+CsJQjR9AOBOirBVT1F9YpRyC9oYHE+ZnSf8y8bxUphtKqdQMPVQ2mHohYdRvDVQ==}
+    engines: {node: '>=16'}
 
   '@wallet-standard/base@1.1.1':
     resolution: {integrity: sha512-gggIHTtxicF9XFMQ12DkfS6NAG92Ak795JeSA7f2whAQ6Y3AkMWWuCMxSZXG2NIPN42kEaZSNVjqMsJRaJRxMQ==}
@@ -2427,7 +2434,7 @@ snapshots:
 
   '@solana/wallet-standard-features@1.5.0':
     dependencies:
-      '@wallet-standard/base': 1.1.1
+      '@wallet-standard/base': 1.1.0
       '@wallet-standard/features': 1.1.1
 
   '@swc/helpers@0.5.23':
@@ -2534,6 +2541,8 @@ snapshots:
   '@wallet-standard/app@1.1.1':
     dependencies:
       '@wallet-standard/base': 1.1.1
+
+  '@wallet-standard/base@1.1.0': {}
 
   '@wallet-standard/base@1.1.1': {}
 
