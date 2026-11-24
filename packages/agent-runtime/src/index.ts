@@ -11,3 +11,4 @@ export { parseAgentAction, renderPrompt } from "./model/actionParser.js";
 export { ChainRefusal, SolanaMandateChain, type MandateChain } from "./chain/mandateChain.js";
 export { MandatePaymentScheme } from "./payments/mandatePaymentScheme.js";
 export { loadKeyPairSigner } from "./keys.js";
+export { HttpStudioGateway, type StudioGatewayClientConfig } from "./payments/studioGatewayClient.js";
