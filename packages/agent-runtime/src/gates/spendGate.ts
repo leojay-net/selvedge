@@ -16,6 +16,7 @@ export interface SpendGateConfig {
   readonly approvalThreshold: bigint;
   readonly agentAddress: string;
   readonly runEnginePrecheck: boolean;
+  readonly runBudget: bigint;
   readonly nowSeconds: () => bigint;
 }
 
@@ -42,10 +43,16 @@ function toPolicyState(account: MandateAccount): mandatePolicy.MandateState {
 }
 
 export class SpendGate {
+  private committedThisRun = 0n;
+
   constructor(private readonly config: SpendGateConfig) {}
 
   async evaluate(attempt: SpendAttempt): Promise<SpendOutcome | null> {
     const account = await this.config.chain.readMandate();
+    if (this.committedThisRun + attempt.amount > this.config.runBudget) {
+      this.config.log.record({ ...this.baseEvent(attempt), gate: "engine_policy", outcome: "refused", reason: "The run budget would be exceeded", rejectionCode: "RunBudgetExceeded" });
+      return { allowed: false, gate: "engine_policy", reason: "RunBudgetExceeded" };
+    }
     if (this.config.runEnginePrecheck) {
       const rejection = this.precheck(account, attempt);
       if (rejection !== null) {
@@ -76,6 +83,7 @@ export class SpendGate {
   }
 
   recordOnChainSuccess(attempt: SpendAttempt, signature: string): SpendOutcome {
+    this.committedThisRun += attempt.amount;
     this.config.log.record({
       ...this.baseEvent(attempt),
       signature,

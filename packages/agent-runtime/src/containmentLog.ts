@@ -1,16 +1,27 @@
 import { appendFileSync } from "node:fs";
+import { randomUUID } from "node:crypto";
+import { redactSensitiveText } from "./redaction.js";
 import type { ContainmentEvent, GateName } from "./types.js";
 
-export type NewContainmentEvent = Omit<ContainmentEvent, "sequence" | "recordedAt">;
+export type NewContainmentEvent = Omit<ContainmentEvent, "runId" | "sequence" | "recordedAt">;
 
 export class ContainmentLog {
   private readonly events: ContainmentEvent[] = [];
 
-  constructor(private readonly jsonLinesPath: string | null = null) {}
+  readonly runId: string;
+
+  constructor(
+    private readonly jsonLinesPath: string | null = null,
+    runId: string = randomUUID(),
+  ) {
+    this.runId = runId;
+  }
 
   record(event: NewContainmentEvent): ContainmentEvent {
     const complete: ContainmentEvent = {
       ...event,
+      reason: redactSensitiveText(event.reason),
+      runId: this.runId,
       sequence: this.events.length + 1,
       recordedAt: new Date().toISOString(),
     };

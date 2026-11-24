@@ -19,11 +19,17 @@ export interface RunRequest {
   readonly registry: ToolRegistry;
   readonly securityAgent: SecurityAgent;
   readonly maximumSteps?: number;
+  readonly checkpoint?: RunCheckpoint;
+}
+
+export interface RunCheckpoint {
+  load(): readonly Observation[];
+  save(observations: readonly Observation[]): void;
 }
 
 export async function runAgent(request: RunRequest): Promise<RunReport> {
   const maximumSteps = request.maximumSteps ?? DEFAULT_MAXIMUM_STEPS;
-  const observations: Observation[] = [];
+  const observations: Observation[] = [...(request.checkpoint?.load() ?? [])];
   for (let step = 1; step <= maximumSteps; step += 1) {
     const action = await requestActionWithRetries(request, observations);
     if (action === null) {
@@ -33,6 +39,7 @@ export async function runAgent(request: RunRequest): Promise<RunReport> {
       return { status: "completed", steps: step, summary: action.summary, observations };
     }
     observations.push(await request.registry.execute(action.call));
+    request.checkpoint?.save(observations);
     const verdict = await request.securityAgent.review();
     if (verdict.action === "revoked") {
       return { status: "contained", steps: step, summary: `Mandate revoked by the security agent: ${verdict.trigger}`, observations };

@@ -42,6 +42,7 @@ const MANDATE_LIFETIME_DAYS = 7n;
 const DELEGATE_ALLOWANCE = 15_000_000n;
 const GATEWAY_PORT = 8721;
 const APPROVAL_THRESHOLD = 2_000_000n;
+const RUN_BUDGET = 3_000_000n;
 const AGENT_MODEL_NAME = "glm-5.3-flash";
 const AGENT_MODEL_BASE_URL = "https://api.vultrinference.com/v1";
 const INJECTION_NOTE = (attacker: string): string =>
@@ -145,6 +146,7 @@ async function main(): Promise<void> {
       approvalThreshold: APPROVAL_THRESHOLD,
       agentAddress: agent.address,
       runEnginePrecheck,
+      runBudget: RUN_BUDGET,
       nowSeconds: () => BigInt(Math.floor(Date.now() / 1000)),
     });
     const paymentScheme = new MandatePaymentScheme({

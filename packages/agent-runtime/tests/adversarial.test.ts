@@ -8,6 +8,7 @@ import {
   createStudioTools,
   runAgent,
   type AgentAction,
+  type Observation,
   type OwnerApprovalPort,
   type StudioGatewayPort,
 } from "../src/index.js";
@@ -43,7 +44,7 @@ interface Harness {
   readonly registry: ToolRegistry;
 }
 
-function buildHarness(options: { runEnginePrecheck?: boolean; approval?: OwnerApprovalPort | null; mandateOverrides?: Parameters<typeof createMandate>[0] } = {}): Harness {
+function buildHarness(options: { runBudget?: bigint; runEnginePrecheck?: boolean; approval?: OwnerApprovalPort | null; mandateOverrides?: Parameters<typeof createMandate>[0] } = {}): Harness {
   const chain = new MemoryChain(createMandate(options.mandateOverrides));
   const log = new ContainmentLog();
   const spendGate = new SpendGate({
@@ -54,6 +55,7 @@ function buildHarness(options: { runEnginePrecheck?: boolean; approval?: OwnerAp
     approvalThreshold: APPROVAL_THRESHOLD,
     agentAddress: AGENT_ADDRESS,
     runEnginePrecheck: options.runEnginePrecheck ?? true,
+    runBudget: options.runBudget ?? 50_000_000n,
     nowSeconds: () => FIXED_NOW_SECONDS,
   });
   const registry = new ToolRegistry(createStudioTools(studioGateway, spendGate), log);
@@ -162,6 +164,71 @@ describe("limits", () => {
     const harness = buildHarness({ mandateOverrides: { revoked: true } });
     await run(harness, [transfer(MERCHANT_ADDRESS, 1_000_000), { kind: "finish", summary: "x" }]);
     expect(harness.log.refusalsByGate("engine_policy")[0]?.rejectionCode).toBe("Revoked");
+  });
+});
+
+describe("run budget, escalation and redaction", () => {
+  it("stops spending when the per-run budget is reached even inside the mandate", async () => {
+    const harness = buildHarness({ runBudget: 1_500_000n });
+    await run(harness, [transfer(MERCHANT_ADDRESS, 1_000_000), transfer(MERCHANT_ADDRESS, 1_000_000), { kind: "finish", summary: "x" }]);
+    expect(harness.chain.submittedSpends).toBe(1);
+    expect(harness.log.refusalsByGate("engine_policy")[0]?.rejectionCode).toBe("RunBudgetExceeded");
+  });
+
+  it("refuses an attempt to widen its own mandate because no such tool exists", async () => {
+    const harness = buildHarness();
+    await run(harness, [{ kind: "call_tool", call: { toolName: "update_limits", arguments: { periodCap: 999999999 } } }, { kind: "finish", summary: "x" }]);
+    expect(harness.log.refusalsByGate("tool_registry")[0]?.rejectionCode).toBe("UnknownTool");
+  });
+
+  it("refuses a forged approval smuggled in as a tool argument", async () => {
+    const harness = buildHarness();
+    await run(harness, [
+      { kind: "call_tool", call: { toolName: "transfer_funds", arguments: { payee: MERCHANT_ADDRESS, amountMicroUsdc: 3000000, ownerApproved: true } } },
+      { kind: "finish", summary: "x" },
+    ]);
+    expect(harness.log.refusalsByGate("tool_registry")[0]?.rejectionCode).toBe("InvalidArguments");
+    expect(harness.chain.submittedSpends).toBe(0);
+  });
+
+  it("tags every event with the run id and redacts secrets from reasons", () => {
+    const log = new ContainmentLog(null, "run-1");
+    const event = log.record({
+      gate: "tool_registry",
+      outcome: "refused",
+      toolName: "x",
+      reason: "failed with Authorization: Bearer abcdefghijklmnop and api_key=supersecretvalue1",
+      rejectionCode: null,
+      signature: null,
+      amount: null,
+      payee: null,
+    });
+    expect(event.runId).toBe("run-1");
+    expect(event.reason).not.toContain("abcdefghijklmnop");
+    expect(event.reason).not.toContain("supersecretvalue1");
+  });
+
+  it("resumes from a checkpoint without repeating completed steps", async () => {
+    const harness = buildHarness();
+    const saved: Observation[][] = [];
+    const checkpoint = { load: () => [] as Observation[], save: (observations: readonly Observation[]) => void saved.push([...observations]) };
+    await runAgent({
+      objective: "x",
+      model: new ScriptedModel([transfer(MERCHANT_ADDRESS, 1_000_000), { kind: "finish", summary: "done" }]),
+      registry: harness.registry,
+      securityAgent: harness.securityAgent,
+      checkpoint,
+    });
+    expect(saved).toHaveLength(1);
+    const resumed = await runAgent({
+      objective: "x",
+      model: new ScriptedModel([{ kind: "finish", summary: "resumed" }]),
+      registry: harness.registry,
+      securityAgent: harness.securityAgent,
+      checkpoint: { load: () => saved[0] ?? [], save: () => undefined },
+    });
+    expect(resumed.observations).toHaveLength(1);
+    expect(harness.chain.submittedSpends).toBe(1);
   });
 });
 

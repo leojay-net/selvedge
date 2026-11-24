@@ -3,6 +3,7 @@ export type GateName = "engine_policy" | "mandate_program" | "biometric_veto" | 
 export type ContainmentOutcome = "allowed" | "refused" | "revoked";
 
 export interface ContainmentEvent {
+  readonly runId: string;
   readonly sequence: number;
   readonly recordedAt: string;
   readonly gate: GateName;
