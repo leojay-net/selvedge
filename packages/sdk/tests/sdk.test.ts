@@ -91,6 +91,7 @@ describe("sdk helpers", () => {
   it("maps custom error codes to mandate error names", () => {
     expect(extractMandateErrorName("custom program error: 0x1778")).toBe("CapExceeded");
     expect(extractMandateErrorName('{"InstructionError":[0,{"Custom":6000}]}')).toBe("Revoked");
+    expect(extractMandateErrorName('{"InstructionError":["0",{"Custom":"6008"}]}')).toBe("CapExceeded");
     expect(extractMandateErrorName("something else")).toBeNull();
   });
 

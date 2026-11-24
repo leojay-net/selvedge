@@ -1,6 +1,6 @@
 import { MANDATE_ERROR_CODE_OFFSET, MANDATE_ERROR_NAMES } from "./constants.js";
 
-const CUSTOM_ERROR_PATTERN = /custom program error: 0x([0-9a-fA-F]+)|"Custom":\s*(\d+)|Custom\((\d+)\)/;
+const CUSTOM_ERROR_PATTERN = /custom program error: 0x([0-9a-fA-F]+)|"Custom":\s*"?(\d+)"?|Custom\((\d+)\)/;
 
 export function mandateErrorNameFromCode(errorCode: number): string | null {
   return MANDATE_ERROR_NAMES[errorCode - MANDATE_ERROR_CODE_OFFSET] ?? null;

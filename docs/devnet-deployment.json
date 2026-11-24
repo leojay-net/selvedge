@@ -1,0 +1,13 @@
+{
+  "network": "solana-devnet",
+  "rpcUrl": "https://api.devnet.solana.com",
+  "mandateProgram": "DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd",
+  "testStablecoinMint": "CcamYMVfgtUQvsmxKtz1faJqPKCGN2vtnfR6bUWWCxvQ",
+  "owner": "9pD9m3hz7GoNXWrtR5h3ZzK8Kr7ZhsDmy7eXbVxcQUKx",
+  "agent": "7Z7UnCKxEEpxPKg5WwC7fxMDD3rdKB6LucCNAkY3dCDr",
+  "securityAuthority": "8H4C3GBKvHaDUDwMinmhX3eSuCanbej8dy2G3dYMinBm",
+  "merchant": "CMspAw9WYXCkFiNmAv8A6divSgAeApUQgaN14SUjdUMD",
+  "facilitatorFeePayer": "ExrBsPu4hhMzUde1nyWaEjUQz1XkBJKw7cr2MuFp9CGm",
+  "ownerTokenAccount": "JB6xryDZdF8CXsB7GjDwKkTUqk3S2YSG9M1j9G6uncki",
+  "merchantTokenAccount": "H7MhpuSJqnZ4qW88Vr7hBZQzoffexq2cYFFcmecqMMYc"
+}

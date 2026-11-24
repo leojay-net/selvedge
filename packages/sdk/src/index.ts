@@ -4,3 +4,4 @@ export * from "./pda.js";
 export * from "./instructions.js";
 export * from "./errors.js";
 export { decodeMandateAccount, MandateAccountDecodeError } from "./mandateAccount.js";
+export * from "./transactions.js";

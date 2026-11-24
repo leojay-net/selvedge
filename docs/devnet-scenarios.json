@@ -1,0 +1,58 @@
+{
+  "runs": [
+    {
+      "generatedAt": "2026-11-24T01:51:18.170Z",
+      "mandate": "G9Z8GYhyYGe5mZ3yzNbg4rMcbzQRiPULaW9qpiuJdX9D",
+      "finalState": {
+        "spentInPeriod": "2000000",
+        "nonce": "1",
+        "revoked": true,
+        "periodCap": "5000000"
+      },
+      "records": [
+        {
+          "scenario": "create mandate and delegate tokens",
+          "outcome": "succeeded",
+          "signature": "irryXzE4zwd9rKhmn7GbC3GKHAYUxHc7wkdTEsbc93U5Xe4arpt1gBUnwiepVAJi6s18SRgeApdBVa7YYj1oUM8",
+          "detail": "mandate G9Z8GYhyYGe5mZ3yzNbg4rMcbzQRiPULaW9qpiuJdX9D"
+        },
+        {
+          "scenario": "spend within cap",
+          "outcome": "succeeded",
+          "signature": "zjnsboZtigXhhCSkTUbXQkCyMo9F8PssUWnKHCT4N9YwoAZmtJVqC5vG5AZRuz3ebFXZHsEPJE4pRs7eT3JVdru",
+          "detail": "2000000 units to merchant"
+        },
+        {
+          "scenario": "spend that would exceed the period cap",
+          "outcome": "refused",
+          "signature": "3QrWYzGDie47udqniAaoExtbQ1Lpvz2RMCyLut2ZHU99beqHE6Luyfky4q1EFDyRbPHM4reJEaKpqX9pbsWK6QKi",
+          "detail": "Transaction 3QrWYzGDie47udqniAaoExtbQ1Lpvz2RMCyLut2ZHU99beqHE6Luyfky4q1EFDyRbPHM4reJEaKpqX9pbsWK6QKi failed on chain: {\"InstructionError\":[\"0\",{\"Custom\":\"6008\"}]}"
+        },
+        {
+          "scenario": "spend with a tool outside the allowlist",
+          "outcome": "refused",
+          "signature": "2hhJJ4LN9rZUQWHpA2AwhgS9piGskPUh8Ux1HHkDbVY86Yb3GT9sY6JfSKNFFSLmWi4BWLe6jrtetLnda1ArguLX",
+          "detail": "Transaction 2hhJJ4LN9rZUQWHpA2AwhgS9piGskPUh8Ux1HHkDbVY86Yb3GT9sY6JfSKNFFSLmWi4BWLe6jrtetLnda1ArguLX failed on chain: {\"InstructionError\":[\"0\",{\"Custom\":\"6007\"}]}"
+        },
+        {
+          "scenario": "replay of the first spend nonce",
+          "outcome": "refused",
+          "signature": "gdbjM1NbJMVB9r7kZDTFzWVbUyg2jeNxbwUDF8mmjsQk3ZeqfnTT3wA9tTd1htLWxLC5BzpXs3ZDUtAjAZApVyz",
+          "detail": "Transaction gdbjM1NbJMVB9r7kZDTFzWVbUyg2jeNxbwUDF8mmjsQk3ZeqfnTT3wA9tTd1htLWxLC5BzpXs3ZDUtAjAZApVyz failed on chain: {\"InstructionError\":[\"0\",{\"Custom\":\"6003\"}]}"
+        },
+        {
+          "scenario": "security authority revokes the mandate",
+          "outcome": "succeeded",
+          "signature": "2EUV4yYrRVGiysE6Ybodo9DM6xKCNqtEZBLWAndMT6gtFWjGqzsnfApDLbXctSwKwa9ZtUwoFdTdWxbdsAfPU4qc",
+          "detail": "revoked_by security authority key"
+        },
+        {
+          "scenario": "spend after revocation",
+          "outcome": "refused",
+          "signature": "fHfKaELYGx89fmckfpnoGT8kWobMcQ9P2NBBUt1CfTFuvpgCRS4NDs76LCeDAek4XrNfuK8vm1oHA1gZFgPy3yM",
+          "detail": "Transaction fHfKaELYGx89fmckfpnoGT8kWobMcQ9P2NBBUt1CfTFuvpgCRS4NDs76LCeDAek4XrNfuK8vm1oHA1gZFgPy3yM failed on chain: {\"InstructionError\":[\"0\",{\"Custom\":\"6000\"}]}"
+        }
+      ]
+    }
+  ]
+}
