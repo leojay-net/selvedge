@@ -1,49 +1,19 @@
 # Progress
 
-Single source of truth. Read this first when resuming.
+Status at usage-limit stop, 2026-11-24. Read this first when resuming.
 
-## Current phase
+## Done, with evidence
+- Mandate program on devnet DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd, deployment tx 4jzVfdb1... (README). 37 LiteSVM tests pass. 10 Kani harnesses pass (docs/VERIFICATION.md).
+- Certora: rule crate builds, prover blocked on account key (docs/BLOCKED.md).
+- Engine (345 tests), SDK (8), paid gateway (8), agent runtime (24), web unit (21) pass. `pnpm verify:evidence` re-checks 20 devnet signatures.
+- x402 payment through the mandate settled on devnet; injection refused at engine policy and at the mandate program; security agent revoked (docs/devnet-agent-run.json).
+- Studio service merged (PROVENANCE.md), web dashboard merged and deployed at https://selvedge-dashboard.vercel.app, Android branch merged up to commit 3d2b3d6.
+- README written with verified facts.
 
-Phase 0: bootstrap.
-
-## Tasks
-
-- [x] Repo initialised at `projects/selvedge`, MIT licence, gitignore
-- [ ] Toolchain recorded in RESEARCH.md
-- [ ] Phase 1 docs: ARCHITECTURE, THREAT-MODEL, API, vectors format
-- [ ] Phase 2 mandate program, tests, Kani, devnet deploy
-- [ ] Phase 3 engine and vectors
-- [ ] Phase 4 agent runtime
-- [ ] Phase 5 studio port and x402 gateway
-- [ ] Phase 6 web dashboard
-- [ ] Phase 7 Android app
-- [ ] Phase 8 devnet end-to-end scenarios
-- [ ] Phase 9 brand and docs
-- [ ] Phase 10 demo video
-- [ ] Phase 11 hardening loop
-
-## Next actions
-
-1. Record toolchain versions in docs/RESEARCH.md.
-2. Write ARCHITECTURE.md and THREAT-MODEL.md.
-3. Implement `programs/mandate/src/logic`.
-
-## Open risks
-
-- Devnet SOL balance on the deploy wallet is limited (airdrop rate-limited).
-
-## Studio service (services/studio)
-
-- [x] Atelier engine ported (spec, engine, ops, av, docs, checks, presets, recipes), renamed to `selvedge_studio`, provenance in PROVENANCE.md
-- [x] Generators, reachable-operation catalogue, single pricing table, JSON Schema export
-- [x] FastAPI service: health, pricing, quote, direct, jobs, status, SSE events, result; token guard, idempotency, payment refusal, body and rate limits
-- [x] Director with provider seam and scripted fake
-- [x] Tests: ported engine tests plus service tests; ruff and mypy strict clean
-- [ ] LibreOffice is not installed on this machine, so `doc.convert` style operations are untested here
-
-## Phase 6 and 9 (web dashboard, brand)
-
-- [x] Brand assets: logo, favicon set, banner, self-hosted fonts
-- [x] Dashboard: overview, agents, mandate detail, activity reviewer, containment, proofs, kill switch
-- [x] Tests: 20 vitest (including live devnet program read), 30 Playwright at 360 and 1280 with axe, 12 live checks against the deployment
-- [x] Deployed: https://selvedge-dashboard.vercel.app
+## Not done
+- Android: emulator instrumented tests, accessibility checks, signed release APK, README facts. The Android agent (ada72ea0ef95199a0) may still be running in .claude/worktrees; merge its branch worktree-agent-ada72ea0ef95199a0 when it commits.
+- Demo video: demo/script.txt, voice-over (106 s), film builder and plan exist; run build-film.mjs, tools/record-demo.mjs demo/plan.json, tools/mux-demo.sh, then ffprobe. Needs an Android clip for scene 3.
+- docs/SUBMISSION-CHECKLIST.md, DEMO-SCRIPT.md, CHANGELOG.
+- README run commands: program tests need target/deploy/selvedge_mandate.so built first (build command not documented yet).
+- Hardening loop final pass, clean-checkout full test rerun after the IDL fix, studio full pytest result (docs/logs/studio-pytest.log).
+- Push to public leojay-net/selvedge (run gh auth status first), tag v0.1.0, release with APK.
