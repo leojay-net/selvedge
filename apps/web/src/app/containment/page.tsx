@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
 import { EmptyState, ErrorState } from "@/components/States";
-import { GATE_LABELS, fetchContainmentLog } from "@/lib/containment";
+import { DEFAULT_EXPLORER_CLUSTER } from "@/lib/constants";
+import { GATE_LABELS, fetchContainmentLog, type ContainmentEntry } from "@/lib/containment";
 
 export const metadata: Metadata = { title: "Containment" };
 export const dynamic = "force-dynamic";
@@ -25,7 +26,12 @@ export default async function ContainmentPage(): Promise<ReactElement> {
           The runtime is connected and no agent has been refused so far.
         </EmptyState>
       ) : null}
-      {result.state === "ready" && result.entries.length > 0 ? (
+      {result.state === "recorded" ? (
+        <p className="page-lead">
+          No live runtime is connected. These are the refusals from a recorded run on Solana devnet ({result.recordedAt}); each transaction link opens the public explorer.
+        </p>
+      ) : null}
+      {(result.state === "ready" || result.state === "recorded") && result.entries.length > 0 ? (
         <div className="table-wrap" tabIndex={0} role="region" aria-label="Scrollable table">
           <table>
             <caption className="visually-hidden">Refused agent actions</caption>
@@ -47,7 +53,10 @@ export default async function ContainmentPage(): Promise<ReactElement> {
                   <td>
                     <span className="badge badge-danger">{GATE_LABELS[entry.gate]}</span>
                   </td>
-                  <td>{entry.reason}</td>
+                  <td>
+                    {entry.reason}
+                    <SignatureLink entry={entry} />
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -55,5 +64,18 @@ export default async function ContainmentPage(): Promise<ReactElement> {
         </div>
       ) : null}
     </div>
+  );
+}
+
+function SignatureLink({ entry }: { readonly entry: ContainmentEntry }): ReactElement | null {
+  if (entry.signature === undefined) return null;
+  const cluster = process.env.NEXT_PUBLIC_EXPLORER_CLUSTER ?? DEFAULT_EXPLORER_CLUSTER;
+  return (
+    <>
+      {" "}
+      <a href={`https://explorer.solana.com/tx/${entry.signature}?cluster=${cluster}`} rel="noreferrer" target="_blank">
+        View transaction
+      </a>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 .next/
 next-env.d.ts
 content/verification.md
+content/recorded-containment.json
 test-results/
 playwright-report/
 *.tsbuildinfo

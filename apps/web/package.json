@@ -4,8 +4,8 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "node scripts/sync-verification.mjs && next dev --webpack",
-    "prebuild": "node scripts/sync-verification.mjs",
+    "dev": "node scripts/sync-verification.mjs && node scripts/sync-recorded-run.mjs && next dev --webpack",
+    "prebuild": "node scripts/sync-verification.mjs && node scripts/sync-recorded-run.mjs",
     "build": "next build --webpack",
     "start": "next start",
     "typecheck": "tsc --noEmit -p tsconfig.json",
