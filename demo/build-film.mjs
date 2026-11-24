@@ -139,7 +139,7 @@ window.playScene = function playScene(sceneIndex, seconds) {
   }
   if (sceneIndex === 3) {
     const android = element('div', 'android');
-    if (DATA.androidClip) { const video = document.createElement('video'); video.src = DATA.androidClip; video.muted = true; video.autoplay = true; android.appendChild(video); }
+    if (DATA.androidClip) { const video = document.createElement('video'); video.src = DATA.androidClip; video.muted = true; video.autoplay = true; video.defaultPlaybackRate = Math.min(16, Math.max(1, 38 / seconds)); video.playbackRate = video.defaultPlaybackRate; android.appendChild(video); }
     else { const shots = element('div', 'shots'); DATA.androidShots.forEach(function addShot(source) { const shot = document.createElement('img'); shot.src = source; shots.appendChild(shot); }); android.appendChild(shots); }
     stage.appendChild(android);
   }

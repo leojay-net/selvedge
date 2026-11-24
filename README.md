@@ -74,6 +74,12 @@ Refused spends are real transactions that failed in the program (the script send
 
 What the adversarial runs are and are not: the "compromised" model is scripted so that it always obeys the injected note, and the note is appended by a wrapper around a real `read_job_result` call. They show that the gates hold when the model is fully compromised. They do not measure how often a real model falls for an injection. The third gate (biometric) is exercised in the Android tests and in the runtime's unit tests with a simulated owner, not in these devnet runs. Full record: [docs/devnet-agent-run.json](docs/devnet-agent-run.json), [docs/devnet-scenarios.json](docs/devnet-scenarios.json).
 
+## Android
+
+`apps/android` is a Kotlin and Compose wallet app (Mobile Wallet Adapter via walletlib 2.2.1, Seed Vault Wallet SDK 0.4.0). The Kotlin engine passes the same 324 conformance vectors as the TypeScript engine (14 decode, 21 risk, 289 policy); 16 engine and 13 app JVM tests and 8 emulator tests (every screen at 360dp and 840dp, accessibility checks, biometric override flow with a fake authenticator) pass. A danger verdict cannot reach signing without a successful strong biometric.
+
+Honest limits: on the emulator the app signs with a labelled software Test Wallet; `SeedVaultBackend` compiles but has never signed anything (no Seed Vault simulator was installed) and the MWA activity was not run against a real dapp. Mandates are stored on the device and checked with the mirrored policy; the app does not submit them to Solana. Details: [docs/BLOCKED.md](docs/BLOCKED.md), `apps/android/README.md`. The signed release APK is attached to the GitHub release.
+
 ## Formal verification
 
 Ten Kani 0.68.0 harnesses prove the policy logic that ships in the program (`programs/mandate/src/logic`, compiled into the proof crate with `#[path]`): spending never exceeds the cap, a revoked or expired mandate authorizes nothing, no panics or overflows, rollover never resets spend inside a period, allowlists are required, and only the owner (or security authority for revoke) changes limits. Bounds and assumptions are written down in [docs/VERIFICATION.md](docs/VERIFICATION.md). A Certora Solana Prover rule crate builds, but the prover run needs a Certora account key and was not executed (see [docs/BLOCKED.md](docs/BLOCKED.md)); nothing is claimed as proved by Certora.

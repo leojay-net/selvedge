@@ -31,3 +31,5 @@ demo/recording/
 demo/screen.*
 .vercel
 demo/plan.json
+demo/voiceover.mp3
+selvedge-demo.mp4
