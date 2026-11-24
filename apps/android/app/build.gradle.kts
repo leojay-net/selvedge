@@ -93,6 +93,7 @@ dependencies {
     implementation(libs.serialization.json)
     implementation(libs.walletlib)
     implementation(libs.seedvault.sdk)
+    implementation(libs.bouncycastle)
 
     testImplementation(libs.junit)
     testImplementation(kotlin("test-junit"))
