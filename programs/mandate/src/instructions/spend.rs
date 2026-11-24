@@ -1,7 +1,5 @@
 use anchor_lang::prelude::*;
-use anchor_spl::token_interface::{
-    transfer_checked, Mint, TokenAccount, TokenInterface, TransferChecked,
-};
+use anchor_spl::token::{transfer_checked, Mint, Token, TokenAccount, TransferChecked};
 
 use crate::constants::MANDATE_SEED;
 use crate::convert::{rejection_to_error, state_from_account, write_state_to_account};
@@ -21,16 +19,16 @@ pub struct Spend<'info> {
     )]
     pub mandate: Account<'info, Mandate>,
     #[account(address = mandate.mint)]
-    pub mint: InterfaceAccount<'info, Mint>,
+    pub mint: Account<'info, Mint>,
     #[account(
         mut,
         token::mint = mint,
         constraint = owner_token_account.owner == mandate.owner @ MandateError::TokenAccountOwnerMismatch
     )]
-    pub owner_token_account: InterfaceAccount<'info, TokenAccount>,
+    pub owner_token_account: Account<'info, TokenAccount>,
     #[account(mut, token::mint = mint)]
-    pub payee_token_account: InterfaceAccount<'info, TokenAccount>,
-    pub token_program: Interface<'info, TokenInterface>,
+    pub payee_token_account: Account<'info, TokenAccount>,
+    pub token_program: Program<'info, Token>,
 }
 
 pub fn handle_spend(

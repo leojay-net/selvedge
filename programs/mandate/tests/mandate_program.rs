@@ -339,22 +339,15 @@ fn payee_outside_the_allowlist_is_rejected() {
 
 #[test]
 fn token_program_outside_the_allowlist_is_rejected() {
-    let mut fixture = standard_fixture();
-    let token_2022_program =
-        solana_address::Address::from_str_const("TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb");
-    let instruction = spend_instruction_with_accounts(
-        &fixture,
-        &fixture.agent.pubkey(),
-        1,
-        DEFAULT_TOOL_ID,
-        0,
-        &fixture.owner_token_account,
-        &fixture.payee_token_account,
-        &token_2022_program,
-    );
-    let agent = fixture.agent.insecure_clone();
+    let mut fixture = fixture_with_params(|payee_owner, _token_program| {
+        let unrelated_program = Keypair::new().pubkey();
+        let mut params = default_params(payee_owner, &unrelated_program);
+        params.allowed_programs = vec![unrelated_program];
+        params
+    });
+    delegate_to_mandate(&mut fixture, OWNER_STARTING_TOKENS);
     assert_mandate_error(
-        send(&mut fixture.svm, &agent, &[], &[instruction]),
+        spend_as_agent(&mut fixture, 1, DEFAULT_TOOL_ID, 0),
         MandateError::ProgramNotAllowed,
     );
 }

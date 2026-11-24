@@ -11,7 +11,7 @@ crate-type = ["cdylib", "lib"]
 name = "selvedge_mandate"
 
 [features]
-default = []
+default = ["no-log-ix-name"]
 cpi = ["no-entrypoint"]
 no-entrypoint = []
 no-log-ix-name = []
