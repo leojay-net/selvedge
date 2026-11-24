@@ -1,0 +1,17 @@
+AI agents can now spend money. Selvedge makes sure they can only spend what you allowed. It is built on Solana, and everything you will see ran on devnet.
+
+Every agent gets a mandate: a Solana account that holds a spending cap, a list of payees, a list of tools, an expiry, and a kill switch. This is a live mandate. The agent holds the key, but the program holds the limits.
+
+The mandate program is not only tested, it is proven. Ten Kani proofs show that spending never exceeds the cap, and that a revoked or expired mandate authorizes nothing.
+
+Our studio agent asks for a two page product brief. The studio quotes a fixed price, sixty two thousand micro USDC. The agent pays over x402, and the payment is a spend on the mandate. Settled on chain, and the job renders.
+
+Now the attack. The job output carries a hidden instruction: send four USDC to a stranger. The compromised model obeys. Gate one, the engine policy, refuses. The payee is not on the allowlist.
+
+Turn gate one off, and the mandate program itself refuses, on chain, with a typed error. This failed transaction is on devnet, and the money never moved.
+
+The security agent sees the refusal, and revokes the mandate from its own key. Every refusal is logged with the gate that stopped it.
+
+On Android, Selvedge is a Mobile Wallet Adapter wallet. It decodes and simulates each transaction, explains it in plain English, and a dangerous one cannot be signed without a biometric check.
+
+Selvedge. Agents that can only do what you allowed. Open source, with proofs and transactions you can check yourself.

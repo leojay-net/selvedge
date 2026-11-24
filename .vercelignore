@@ -1,0 +1,11 @@
+.claude
+target
+programs
+services
+apps/android
+keys
+demo
+docs/logs
+.venv
+**/node_modules
+**/.next

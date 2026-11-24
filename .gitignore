@@ -24,3 +24,9 @@ playwright-report/
 test-results/
 .claude/
 .vercel
+demo/build/
+demo/film.html
+demo/node_modules
+demo/recording/
+demo/screen.*
+.vercel
