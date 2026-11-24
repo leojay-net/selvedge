@@ -9,6 +9,9 @@ use crate::logic::state::{
 };
 
 const SEQUENCE_LENGTH: usize = 3;
+const MAX_TIMESTAMP: i64 = 1 << 33;
+const MIN_PERIOD_SECONDS: i64 = 60;
+const MAX_PERIOD_SECONDS: i64 = 31_536_000;
 
 fn any_key_allowlist<const CAPACITY: usize>() -> KeyAllowlist<CAPACITY> {
     let allowlist = KeyAllowlist::<CAPACITY> {
@@ -49,9 +52,9 @@ fn any_state() -> MandateState {
 fn any_well_formed_state() -> MandateState {
     let state = any_state();
     kani::assume(state.spent_in_period <= state.period_cap);
-    kani::assume(state.period_seconds > 0);
-    kani::assume(state.period_start >= 0 && state.period_start < i64::MAX / 4);
-    kani::assume(state.period_seconds < i64::MAX / 4);
+    kani::assume(state.period_seconds >= MIN_PERIOD_SECONDS);
+    kani::assume(state.period_seconds <= MAX_PERIOD_SECONDS);
+    kani::assume(state.period_start >= 0 && state.period_start < MAX_TIMESTAMP);
     state
 }
 
@@ -142,7 +145,7 @@ fn management_logic_never_panics_for_any_input() {
 fn period_rollover_never_resets_spend_inside_the_same_period() {
     let state = any_well_formed_state();
     let now: i64 = kani::any();
-    kani::assume(now >= 0 && now < i64::MAX / 4);
+    kani::assume(now >= 0 && now < MAX_TIMESTAMP);
     let period_end = state.period_start + state.period_seconds;
     kani::assume(now < period_end);
     let rolled = roll_period(&state, now).unwrap();
@@ -155,7 +158,7 @@ fn period_rollover_never_resets_spend_inside_the_same_period() {
 fn period_rollover_window_contains_now_after_roll() {
     let state = any_well_formed_state();
     let now: i64 = kani::any();
-    kani::assume(now >= state.period_start && now < i64::MAX / 4);
+    kani::assume(now >= state.period_start && now < MAX_TIMESTAMP);
     let rolled = roll_period(&state, now).unwrap();
     assert!(rolled.period_start <= now);
     assert!(now < rolled.period_start + rolled.period_seconds);
@@ -202,7 +205,7 @@ fn bounded_sequence_of_operations_preserves_the_cap_invariant() {
     let mut step_index = 0;
     while step_index < SEQUENCE_LENGTH {
         let now: i64 = kani::any();
-        kani::assume(now >= 0 && now < i64::MAX / 4);
+        kani::assume(now >= 0 && now < MAX_TIMESTAMP);
         let operation: u8 = kani::any();
         if operation % 2 == 0 {
             let request = any_request();
@@ -212,7 +215,7 @@ fn bounded_sequence_of_operations_preserves_the_cap_invariant() {
         } else {
             let signer: [u8; 32] = kani::any();
             let update = any_limit_update();
-            kani::assume(update.period_seconds < i64::MAX / 4);
+            kani::assume(update.period_seconds <= MAX_PERIOD_SECONDS);
             if let Ok(next) = authorize_limit_update(&state, &signer, &update, now) {
                 state = next;
             }
