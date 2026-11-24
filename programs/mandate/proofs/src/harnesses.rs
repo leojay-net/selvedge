@@ -4,9 +4,7 @@ use crate::logic::policy::{
     authorize_agent_rotation, authorize_limit_update, authorize_revoke, authorize_spend,
     roll_period,
 };
-use crate::logic::state::{
-    KeyAllowlist, LimitUpdate, MandateState, SpendRequest, ToolAllowlist,
-};
+use crate::logic::state::{KeyAllowlist, LimitUpdate, MandateState, SpendRequest, ToolAllowlist};
 
 const SEQUENCE_LENGTH: usize = 3;
 const MAX_TIMESTAMP: i64 = 1 << 33;

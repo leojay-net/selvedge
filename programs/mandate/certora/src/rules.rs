@@ -20,7 +20,10 @@ fn nondet_key_allowlist<const CAPACITY: usize>() -> KeyAllowlist<CAPACITY> {
         entries[entry_index] = nondet_key();
         entry_index += 1;
     }
-    KeyAllowlist { entries, length: nondet() }
+    KeyAllowlist {
+        entries,
+        length: nondet(),
+    }
 }
 
 fn nondet_tool_allowlist() -> ToolAllowlist {
@@ -30,7 +33,10 @@ fn nondet_tool_allowlist() -> ToolAllowlist {
         entries[entry_index] = nondet();
         entry_index += 1;
     }
-    ToolAllowlist { entries, length: nondet() }
+    ToolAllowlist {
+        entries,
+        length: nondet(),
+    }
 }
 
 fn nondet_state() -> MandateState {
