@@ -42,7 +42,7 @@ export function ReviewView({ review }: { readonly review: ReviewResult }): React
 
       <div className="stack" style={{ gap: "var(--space-3)" }}>
         <h3>Decoded instructions</h3>
-        <div className="table-wrap">
+        <div className="table-wrap" tabIndex={0} role="region" aria-label="Scrollable table">
           <table>
             <caption className="visually-hidden">Instructions in this transaction</caption>
             <thead>

@@ -26,7 +26,7 @@ export default async function ContainmentPage(): Promise<ReactElement> {
         </EmptyState>
       ) : null}
       {result.state === "ready" && result.entries.length > 0 ? (
-        <div className="table-wrap">
+        <div className="table-wrap" tabIndex={0} role="region" aria-label="Scrollable table">
           <table>
             <caption className="visually-hidden">Refused agent actions</caption>
             <thead>
