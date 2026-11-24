@@ -1,0 +1,7 @@
+.next/
+next-env.d.ts
+content/verification.md
+test-results/
+playwright-report/
+*.tsbuildinfo
+.vercel
