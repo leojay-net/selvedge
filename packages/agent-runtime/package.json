@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@selvedge/engine": "workspace:*",
+    "@selvedge/paid-gateway": "workspace:*",
     "@selvedge/sdk": "workspace:*",
     "@solana/kit": "8.6.0",
     "@x402/core": "2.32.0",
