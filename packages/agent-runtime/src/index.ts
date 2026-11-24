@@ -14,3 +14,4 @@ export { ChainRefusal, SolanaMandateChain, type MandateChain } from "./chain/man
 export { MandatePaymentScheme } from "./payments/mandatePaymentScheme.js";
 export { loadKeyPairSigner } from "./keys.js";
 export { HttpStudioGateway, type StudioGatewayClientConfig } from "./payments/studioGatewayClient.js";
+export { createRuntimeApp, type RuntimeAppConfig } from "./runtimeApp.js";

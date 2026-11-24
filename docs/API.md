@@ -36,12 +36,10 @@ Resource server and self-hosted x402 facilitator.
 
 | Method and path | Purpose |
 |---|---|
-| `GET /agents` | Agents with mandate address, status, spend. |
-| `POST /agents` | Body `{ "template": "studio" | "security" | "payments", "limits": { ... } }` spawn plan. The owner signs the mandate creation. |
-| `POST /agents/{id}/runs` | Start a run with a user request. |
-| `GET /agents/{id}/runs/{runId}` | Steps, tool calls, refusals with the gate that stopped each. |
-| `GET /containment` | Containment log: every blocked attempt with the gate and a plain-English reason. |
-| `POST /review` | Body `{ "transactionBase64": "..." }`. Returns decode, simulation deltas, risk findings, verdict and explanation. Used by the dashboard and the Android app. |
+| `GET /health` | Liveness. |
+| `GET /containment` | Containment log from the JSON lines file named by `CONTAINMENT_LOG_PATH`: every refused or revoked action with the gate that stopped it, newest first. Allowed spends are not listed. |
+
+Transaction review (decode, simulation, risk, explanation) is served by the dashboard's own `POST /api/review` route, which calls `@selvedge/engine` directly. Runs are started by the scripts in `packages/agent-runtime/scripts`; there is no remote spawn API.
 
 ## Engine types (TypeScript, `packages/engine`)
 

@@ -108,10 +108,16 @@ importers:
       '@x402/svm':
         specifier: 2.32.0
         version: 2.32.0(@solana/kit@8.6.0(typescript@7.0.2))(@solana/sysvars@8.6.0(typescript@7.0.2))(typescript@7.0.2)
+      express:
+        specifier: 5.3.0
+        version: 5.3.0
       zod:
         specifier: 4.6.7
         version: 4.6.7
     devDependencies:
+      '@types/express':
+        specifier: 5.0.6
+        version: 5.0.6
       '@types/node':
         specifier: 24.19.2
         version: 24.19.2
