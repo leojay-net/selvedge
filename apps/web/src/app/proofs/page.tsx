@@ -26,7 +26,7 @@ export default function ProofsPage(): ReactElement {
         {REPOSITORY_PROOF_COMMANDS.map((entry) => (
           <div key={entry.command} className="stack" style={{ gap: "var(--space-2)" }}>
             <p>{entry.label}</p>
-            <pre className="command">{entry.command}</pre>
+            <pre className="command" tabIndex={0}>{entry.command}</pre>
           </div>
         ))}
       </section>

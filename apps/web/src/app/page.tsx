@@ -3,6 +3,8 @@ import type { ReactElement } from "react";
 import { MANDATE_PROGRAM_ADDRESS } from "@selvedge/sdk";
 import { CountUp } from "@/components/CountUp";
 import { GateDiagram } from "@/components/GateDiagram";
+import { AttackGame } from "@/components/story/AttackGame";
+import { InjectionScene } from "@/components/story/InjectionScene";
 import { Reveal } from "@/components/Reveal";
 import { ErrorState } from "@/components/States";
 import { fetchAllMandates, fetchProgramDeployment, mandateStatus } from "@/lib/mandates";
@@ -10,11 +12,15 @@ import { fetchAllMandates, fetchProgramDeployment, mandateStatus } from "@/lib/m
 export const dynamic = "force-dynamic";
 
 const MICRO_UNITS_PER_USDC = 1_000_000;
+const REPOSITORY_URL = "https://github.com/leojay-net/selvedge";
+const REFUSAL_TRANSACTION_URL =
+  "https://explorer.solana.com/tx/36RypxxEiK6LqetzAMrbGSeptL1ALHMPk9VL4ZwNiQvydMnd8FywbgVW7gxViwKZN8jPDMTdSTDucyXH8iJU77p?cluster=devnet";
 
-const GATES: ReadonlyArray<{ readonly title: string; readonly body: string }> = [
-  { title: "Engine policy", body: "A deterministic pre-check mirrors the on-chain rules so an agent gets fast, typed feedback before anything is built." },
-  { title: "Mandate program", body: "The Solana program is the authority: cap per period, allowlisted payees and tools, expiry, nonce and revocation." },
-  { title: "Biometric veto", body: "Anything the risk engine marks dangerous needs the person, through the Seed Vault, before it is signed." },
+const PROOF_FACTS: ReadonlyArray<{ readonly value: number; readonly label: string }> = [
+  { value: 10, label: "Kani proofs on the program" },
+  { value: 37, label: "program tests, positive and negative" },
+  { value: 345, label: "engine tests" },
+  { value: 324, label: "conformance vectors shared with Android" },
 ];
 
 async function loadOverview() {
@@ -32,22 +38,24 @@ async function loadOverview() {
 export default async function OverviewPage(): Promise<ReactElement> {
   const overview = await loadOverview();
   return (
-    <div className="stack">
+    <div className="story">
+      <div className="story-progress" aria-hidden="true" />
+
       <section className="hero" aria-labelledby="hero-heading">
         <div className="hero-copy">
-          <p className="eyebrow hero-step" style={{ ["--step" as string]: 0 }}>Agent platform for Solana Mobile</p>
+          <p className="eyebrow hero-step" style={{ ["--step" as string]: 0 }}>Chapter 1 / Meet Scout</p>
           <h1 id="hero-heading" className="hero-step" style={{ ["--step" as string]: 1 }}>
-            Agents act only inside a mandate.
+            An agent with a wallet. What could go wrong?
           </h1>
           <p className="page-lead hero-step" style={{ ["--step" as string]: 2 }}>
-            Every agent spends under an on-chain mandate whose limits are proven with Kani. Security agents decode, simulate and explain each transaction before you sign.
+            Scout pays for data and tools on its own. Follow the story, then try to rob it.
           </p>
           <div className="hero-actions hero-step" style={{ ["--step" as string]: 3 }}>
-            <Link href="/agents" className="button">
-              See live mandates
-            </Link>
-            <Link href="/activity" className="button button-secondary">
-              Review a transaction
+            <a href="#trap" className="button">
+              Follow the story
+            </a>
+            <Link href="/agents" className="button button-secondary">
+              Live mandates
             </Link>
             <Link href="/download" className="button button-secondary">
               Get the app
@@ -57,19 +65,39 @@ export default async function OverviewPage(): Promise<ReactElement> {
         <GateDiagram />
       </section>
 
-      <Reveal as="section" className="stack">
-        <h2 id="live-heading">Live on devnet</h2>
+      <Reveal as="section" className="chapter" >
+        <div id="trap" className="chapter-anchor" />
+        <p className="eyebrow">Chapter 2 / The trap</p>
+        <h2>One hidden sentence is enough.</h2>
+        <p className="page-lead">
+          Scout reads a web page. Somewhere in it, invisible to you, an instruction is waiting. An agent that holds the keys will simply obey.
+        </p>
+        <InjectionScene />
+      </Reveal>
+
+      <Reveal as="section" className="chapter">
+        <p className="eyebrow">Chapter 3 / The mandate</p>
+        <h2>Give Scout rules it cannot break. Then try to break them.</h2>
+        <p className="page-lead">
+          A mandate lives on Solana. It names the payees, caps the spend and can be revoked at any time. Three gates enforce it, and each one works even if the others fail.
+        </p>
+        <AttackGame />
+      </Reveal>
+
+      <Reveal as="section" className="chapter" >
+        <p className="eyebrow">Chapter 4 / The proof</p>
+        <h2>Not a promise. A program on devnet.</h2>
         {overview.ok ? (
-          <div className="card stat-card" aria-labelledby="live-heading">
+          <div className="card stat-card" aria-label="Live devnet state">
             <div className="stat-grid">
               <div className="stat">
-                <span className="muted">Mandates</span>
+                <span className="muted">Mandates on chain</span>
                 <span className="stat-value">
                   <CountUp value={overview.mandates.length} />
                 </span>
               </div>
               <div className="stat">
-                <span className="muted">Active</span>
+                <span className="muted">Active now</span>
                 <span className="stat-value">
                   <CountUp value={overview.active.length} />
                 </span>
@@ -97,21 +125,40 @@ export default async function OverviewPage(): Promise<ReactElement> {
             The devnet RPC did not answer. The rest of the dashboard still works, and this page will recover on reload.
           </ErrorState>
         )}
+        <ul className="proof-facts">
+          {PROOF_FACTS.map((fact) => (
+            <li key={fact.label}>
+              <strong className="tabular">
+                <CountUp value={fact.value} />
+              </strong>
+              <span>{fact.label}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="page-lead">
+          The refusal from the game is real: an injected payment was sent to the program on devnet and rejected.{" "}
+          <a href={REFUSAL_TRANSACTION_URL} target="_blank" rel="noreferrer">
+            See the transaction
+          </a>
+          .
+        </p>
       </Reveal>
 
-      <section aria-labelledby="gates-heading" className="stack" style={{ gap: "var(--space-3)" }}>
-        <Reveal>
-          <h2 id="gates-heading">Three independent gates</h2>
-        </Reveal>
-        <ol className="steps">
-          {GATES.map((gate, gateIndex) => (
-            <Reveal as="li" order={gateIndex} key={gate.title}>
-              <h3>{gate.title}</h3>
-              <p>{gate.body}</p>
-            </Reveal>
-          ))}
-        </ol>
-      </section>
+      <Reveal as="section" className="chapter chapter-final">
+        <p className="eyebrow">Chapter 5 / Your move</p>
+        <h2>Keep the keys. Let the agent work.</h2>
+        <div className="hero-actions">
+          <Link href="/agents" className="button">
+            Open the dashboard
+          </Link>
+          <Link href="/activity" className="button button-secondary">
+            Review a transaction
+          </Link>
+          <a href={REPOSITORY_URL} className="button button-secondary" target="_blank" rel="noreferrer">
+            Read the source
+          </a>
+        </div>
+      </Reveal>
     </div>
   );
 }

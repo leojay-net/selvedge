@@ -27,7 +27,9 @@ export function WalletButton(): ReactElement {
 
   return (
     <div className="cluster">
-      <span className="badge badge-neutral">Read-only</span>
+      <span className="badge badge-neutral" title="No wallet connected. You can browse mandates and review transactions, but connect a wallet to create, change or revoke one.">
+        Viewing only
+      </span>
       <button
         type="button"
         className="button button-secondary"

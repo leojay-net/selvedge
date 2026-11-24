@@ -3,7 +3,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { FIXTURE_MANDATE_ADDRESS, FIXTURE_OWNER, buildRevokeTransactionBase64 } from "../fixtures/chainFixtures";
 
 const PAGES_UNDER_AUDIT: ReadonlyArray<{ readonly path: string; readonly heading: string }> = [
-  { path: "/", heading: "Agents act only inside a mandate." },
+  { path: "/", heading: "An agent with a wallet. What could go wrong?" },
   { path: "/agents", heading: "Agents" },
   { path: `/mandates/${FIXTURE_MANDATE_ADDRESS}`, heading: "Mandate 7" },
   { path: "/activity", heading: "Activity" },
@@ -47,7 +47,7 @@ test("an unknown mandate shows the not-found state", async ({ page }) => {
 
 test("without a wallet the kill switch stays disabled", async ({ page }) => {
   await page.goto(`/mandates/${FIXTURE_MANDATE_ADDRESS}`);
-  await expect(page.getByText("Read-only", { exact: true })).toBeVisible();
+  await expect(page.getByText("Viewing only", { exact: true })).toBeVisible();
   await expect(page.getByRole("button", { name: "Review revoke transaction" })).toBeDisabled();
 });
 
@@ -136,4 +136,23 @@ test("a wallet-standard wallet can review and sign a revoke", async ({ page }) =
   await expect(page.getByText(/Revoke submitted/)).toBeVisible();
   const signedCount = await page.evaluate(() => (window as unknown as { __signedTransactions: number[] }).__signedTransactions.length);
   expect(signedCount).toBe(1);
+});
+
+test("the attack game stops a stranger and awards the badge after every attack", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: /Send funds to a stranger/ }).click();
+  await expect(page.getByText(/Stopped by Engine policy/)).toBeVisible();
+  for (const attackName of [/Spend past the cap/, /Replay an old payment/, /Ask for unlimited access/, /Pay after you pulled the plug/]) {
+    await page.getByRole("button", { name: attackName }).click();
+    await expect(page.getByText(/Stopped by/)).toBeVisible();
+  }
+  await expect(page.getByText("Vault intact. Nothing got through.")).toBeVisible();
+});
+
+test("allowing the stranger in the mandate lets the attack through and costs funds", async ({ page }) => {
+  await page.goto("/");
+  await page.getByLabel(/Also allow Unknown wallet/).check();
+  await page.getByRole("button", { name: /Send funds to a stranger/ }).click();
+  await expect(page.getByText(/Settled\./)).toBeVisible();
+  await expect(page.getByText("2 USDC", { exact: true })).toBeVisible();
 });
