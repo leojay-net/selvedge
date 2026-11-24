@@ -1,0 +1,17 @@
+[toolchain]
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.devnet]
+selvedge_mandate = "DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd"
+
+[provider]
+cluster = "devnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "cargo test -p selvedge-mandate"
+
+[hooks]

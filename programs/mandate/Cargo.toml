@@ -1,0 +1,37 @@
+[package]
+name = "selvedge-mandate"
+version = "0.1.0"
+description = "On-chain spending mandate for Selvedge agents"
+edition.workspace = true
+rust-version.workspace = true
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "selvedge_mandate"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build", "anchor-spl/idl-build"]
+anchor-debug = []
+custom-heap = []
+custom-panic = []
+
+[dependencies]
+anchor-lang = "1.2.2"
+anchor-spl = "1.2.2"
+
+[dev-dependencies]
+litesvm = "0.18.2"
+litesvm-token = "0.18.2"
+solana-keypair = "3.1.2"
+solana-signer = "3.0.1"
+solana-transaction = { version = "4.1.5", features = ["verify"] }
+solana-address = "2.7.0"
+solana-message = "4"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(target_os, values("solana"))'] }
