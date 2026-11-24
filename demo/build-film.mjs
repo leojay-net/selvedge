@@ -148,3 +148,22 @@ window.playScene = function playScene(sceneIndex, seconds) {
 </script></body></html>`;
 writeFileSync(join(demoDirectory, "film.html"), page);
 process.stdout.write(`film.html written with ${scenes.length} scenes; android clip: ${androidClip ?? "none"}, screenshots: ${androidShots.length}\n`);
+
+const SITE = "https://selvedge-dashboard.vercel.app";
+const filmUrl = `file://${join(demoDirectory, "film.html")}`;
+const plan = {
+  url: SITE,
+  timings: "build/voiceover_segments/timings.json",
+  segments: [
+    { goto: `${SITE}/` },
+    { goto: `${SITE}/mandates/${honest.mandate}` },
+    { goto: `${SITE}/proofs` },
+    { goto: filmUrl, scene: 0 },
+    { goto: filmUrl, scene: 1 },
+    { goto: filmUrl, scene: 2 },
+    { goto: `${SITE}/containment` },
+    { goto: filmUrl, scene: 3 },
+    { goto: filmUrl, scene: 4 },
+  ],
+};
+writeFileSync(join(demoDirectory, "plan.json"), `${JSON.stringify(plan, null, 2)}\n`);

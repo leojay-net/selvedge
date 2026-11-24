@@ -30,3 +30,4 @@ demo/node_modules
 demo/recording/
 demo/screen.*
 .vercel
+demo/plan.json
