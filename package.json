@@ -4,10 +4,17 @@
   "version": "0.1.0",
   "license": "MIT",
   "packageManager": "pnpm@10.32.1",
-  "engines": { "node": ">=24.10.0" },
+  "engines": {
+    "node": ">=24.10.0"
+  },
   "scripts": {
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
-    "lint": "pnpm -r lint"
+    "lint": "pnpm -r lint",
+    "verify:evidence": "tsx packages/agent-runtime/scripts/verifyEvidence.ts",
+    "verify:proofs": "bash tools/run-proofs.sh"
+  },
+  "devDependencies": {
+    "tsx": "4.23.15"
   }
 }
