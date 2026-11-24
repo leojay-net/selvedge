@@ -1,0 +1,882 @@
+{
+  "schema": "selvedge-risk-vectors",
+  "version": 1,
+  "cases": [
+    {
+      "name": "small transfer to a known friend is safe",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtc281nXmJH67KYw9HVx9Zpnhyhtk6okVpZwLXCIuv4lgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgIAAQwCAAAAgJaYAAAAAAA=",
+      "lookupTables": {},
+      "deltas": [
+        {
+          "owner": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "asset": "SOL",
+          "before": "5000000000",
+          "after": "4990000000",
+          "change": "-10000000"
+        },
+        {
+          "owner": "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "asset": "SOL",
+          "before": "1000000000",
+          "after": "1010000000",
+          "change": "10000000"
+        }
+      ],
+      "simulation": {
+        "succeeded": true,
+        "errorDescription": null
+      },
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [],
+        "findings": [],
+        "score": 0,
+        "verdict": "safe",
+        "explanation": "No risks were found in this transaction.\nYou send 0.01 SOL."
+      }
+    },
+    {
+      "name": "unlimited delegation is critical",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIEzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6EQPm2or36l1d1INwPkukMBICWEYZuAKv/VAEu5+9O3pBt324ddloZPZy+FGzut5rBy0he1fWzeROoz1hX7/AKmn08wJoJPxFG7IPR1c2HBvPILl/8k5rDdIwiIR4Xcw3AEDAwECAAkE//////////8=",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": {
+        "succeeded": true,
+        "errorDescription": null
+      },
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-001"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-001",
+            "severity": "critical",
+            "title": "Unlimited token delegation",
+            "detail": "This lets 5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE spend an effectively unlimited amount of your tokens at any time.",
+            "evidence": {
+              "delegate": "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE",
+              "amount": "18446744073709551615"
+            }
+          }
+        ],
+        "score": 60,
+        "verdict": "danger",
+        "explanation": "Do not sign this transaction.\nUnlimited token delegation: This lets 5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE spend an effectively unlimited amount of your tokens at any time."
+      }
+    },
+    {
+      "name": "limited delegation to a stranger is a warning",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIEzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6EQPm2or36l1d1INwPkukMBICWEYZuAKv/VAEu5+9O3pBt324ddloZPZy+FGzut5rBy0he1fWzeROoz1hX7/AKmn08wJoJPxFG7IPR1c2HBvPILl/8k5rDdIwiIR4Xcw3AEDAwECAAkEgJaYAAAAAAA=",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-002"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-002",
+            "severity": "warning",
+            "title": "Token delegation to an unfamiliar address",
+            "detail": "This lets 5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE spend up to 10000000 token units from your account.",
+            "evidence": {
+              "delegate": "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE",
+              "amount": "10000000"
+            }
+          }
+        ],
+        "score": 20,
+        "verdict": "caution",
+        "explanation": "Review this transaction carefully before signing.\nToken delegation to an unfamiliar address: This lets 5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE spend up to 10000000 token units from your account."
+      }
+    },
+    {
+      "name": "delegation to a known mandate is quiet",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIEzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6KaVBpZL16bJMMvxyvlJnYuffDbRfVjGSohy6PMjdX4sBt324ddloZPZy+FGzut5rBy0he1fWzeROoz1hX7/AKmn08wJoJPxFG7IPR1c2HBvPILl/8k5rDdIwiIR4Xcw3AEDAwECAAkEgJaYAAAAAAA=",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [],
+        "findings": [],
+        "score": 0,
+        "verdict": "safe",
+        "explanation": "No risks were found in this transaction."
+      }
+    },
+    {
+      "name": "account owner handed to an attacker",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6Abd9uHXZaGT2cvhRs7reawctIXtX1s3kTqM9YV+/wCpp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgIBACMGAgFED5tqK9+pdXdSDcD5LpDASAlhGGbgCr/1QBLufvTt6Q==",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-003"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-003",
+            "severity": "critical",
+            "title": "Control of a token account or mint is being handed over",
+            "detail": "The account-owner authority of 61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK would move to 5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE.",
+            "evidence": {
+              "account": "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+              "authorityType": "account-owner",
+              "newAuthority": "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE"
+            }
+          }
+        ],
+        "score": 60,
+        "verdict": "danger",
+        "explanation": "Do not sign this transaction.\nControl of a token account or mint is being handed over: The account-owner authority of 61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK would move to 5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE."
+      }
+    },
+    {
+      "name": "close account sweeps to a stranger",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEEzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6EQPm2or36l1d1INwPkukMBICWEYZuAKv/VAEu5+9O3pBt324ddloZPZy+FGzut5rBy0he1fWzeROoz1hX7/AKmn08wJoJPxFG7IPR1c2HBvPILl/8k5rDdIwiIR4Xcw3AEDAwECAAEJ",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-004"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-004",
+            "severity": "critical",
+            "title": "Account is closed and its balance sent elsewhere",
+            "detail": "Closing 61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK would send its remaining lamports to 5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE.",
+            "evidence": {
+              "account": "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+              "destination": "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE"
+            }
+          }
+        ],
+        "score": 60,
+        "verdict": "danger",
+        "explanation": "Do not sign this transaction.\nAccount is closed and its balance sent elsewhere: Closing 61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK would send its remaining lamports to 5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE."
+      }
+    },
+    {
+      "name": "usdc drain of ninety five percent",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIFzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6GR7KcRr1okQws6HuLTQGBEl2XCwRmDy7XTsWjLHZ5BoO0Qss5EhV/E6kz0BNCgtAytf/s0Botvxt3kGCN8ALqcG3fbh12Whk9nL4UbO63msHLSF7V9bN5E6jPWFfv8AqafTzAmgk/EUbsg9HVzYcG88guX/yTmsN0jCIhHhdzDcAQQEAQMCAAoMgNmfOAAAAAAG",
+      "lookupTables": {},
+      "deltas": [
+        {
+          "owner": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "asset": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "before": "1000000000",
+          "after": "50000000",
+          "change": "-950000000"
+        },
+        {
+          "owner": "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE",
+          "asset": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "before": "0",
+          "after": "950000000",
+          "change": "950000000"
+        }
+      ],
+      "simulation": {
+        "succeeded": true,
+        "errorDescription": null
+      },
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-005",
+          "SV-007"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-005",
+            "severity": "critical",
+            "title": "Nearly your entire balance leaves",
+            "detail": "About 95% of your USDC balance would leave your wallet.",
+            "evidence": {
+              "owner": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+              "asset": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+              "lostPermille": "950"
+            }
+          },
+          {
+            "ruleId": "SV-007",
+            "severity": "warning",
+            "title": "Large transfer to an address you have not used",
+            "detail": "950 USDC would go to 5agX...dkRE.",
+            "evidence": {
+              "destination": "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE",
+              "asset": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+              "amount": "950000000"
+            }
+          }
+        ],
+        "score": 80,
+        "verdict": "danger",
+        "explanation": "Do not sign this transaction.\nYou send 950 USDC.\nNearly your entire balance leaves: About 95% of your USDC balance would leave your wallet.\nLarge transfer to an address you have not used: 950 USDC would go to 5agX...dkRE."
+      }
+    },
+    {
+      "name": "usdc outflow of sixty percent",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIFzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6JHJj0yQ+QoxEtTSDKyBmYeGD+ypovJnR8vjVJ83B2PtO0Qss5EhV/E6kz0BNCgtAytf/s0Botvxt3kGCN8ALqcG3fbh12Whk9nL4UbO63msHLSF7V9bN5E6jPWFfv8AqafTzAmgk/EUbsg9HVzYcG88guX/yTmsN0jCIhHhdzDcAQQEAQMCAAoMAEbDIwAAAAAG",
+      "lookupTables": {},
+      "deltas": [
+        {
+          "owner": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "asset": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "before": "1000000000",
+          "after": "400000000",
+          "change": "-600000000"
+        },
+        {
+          "owner": "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "asset": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "before": "0",
+          "after": "600000000",
+          "change": "600000000"
+        }
+      ],
+      "simulation": {
+        "succeeded": true,
+        "errorDescription": null
+      },
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-005"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-005",
+            "severity": "warning",
+            "title": "More than half of a balance leaves",
+            "detail": "About 60% of your USDC balance would leave your wallet.",
+            "evidence": {
+              "owner": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+              "asset": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+              "lostPermille": "600"
+            }
+          }
+        ],
+        "score": 20,
+        "verdict": "caution",
+        "explanation": "Review this transaction carefully before signing.\nYou send 600 USDC.\nMore than half of a balance leaves: About 60% of your USDC balance would leave your wallet."
+      }
+    },
+    {
+      "name": "native dust is ignored by the drain rule",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtc281nXmJH67KYw9HVx9Zpnhyhtk6okVpZwLXCIuv4lgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgIAAQwCAAAAAAk9AAAAAAA=",
+      "lookupTables": {},
+      "deltas": [
+        {
+          "owner": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "asset": "SOL",
+          "before": "5000000",
+          "after": "1000000",
+          "change": "-4000000"
+        }
+      ],
+      "simulation": {
+        "succeeded": true,
+        "errorDescription": null
+      },
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [],
+        "findings": [],
+        "score": 0,
+        "verdict": "safe",
+        "explanation": "No risks were found in this transaction.\nYou send 0.004 SOL."
+      }
+    },
+    {
+      "name": "unknown program with outflow is critical",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6N2YkRNB2ft7IjtXr6cR+5u+jjt2CaB5JEW8lTjcbheKp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgEBAwECAw==",
+      "lookupTables": {},
+      "deltas": [
+        {
+          "owner": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "asset": "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "before": "100000000",
+          "after": "95000000",
+          "change": "-5000000"
+        }
+      ],
+      "simulation": {
+        "succeeded": true,
+        "errorDescription": null
+      },
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-006"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-006",
+            "severity": "critical",
+            "title": "Calls a program Selvedge does not recognise",
+            "detail": "The transaction runs Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97, which cannot be decoded and it reduces your balance.",
+            "evidence": {
+              "programs": "Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97",
+              "withOutflow": true
+            }
+          }
+        ],
+        "score": 60,
+        "verdict": "danger",
+        "explanation": "Do not sign this transaction.\nYou send 5 USDC.\nCalls a program Selvedge does not recognise: The transaction runs Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97, which cannot be decoded and it reduces your balance."
+      }
+    },
+    {
+      "name": "unknown program without outflow is a warning",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6N2YkRNB2ft7IjtXr6cR+5u+jjt2CaB5JEW8lTjcbheKp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgEBAwECAw==",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-006"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-006",
+            "severity": "warning",
+            "title": "Calls a program Selvedge does not recognise",
+            "detail": "The transaction runs Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97, which cannot be decoded.",
+            "evidence": {
+              "programs": "Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97",
+              "withOutflow": false
+            }
+          }
+        ],
+        "score": 20,
+        "verdict": "caution",
+        "explanation": "Review this transaction carefully before signing.\nCalls a program Selvedge does not recognise: The transaction runs Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97, which cannot be decoded."
+      }
+    },
+    {
+      "name": "large sol transfer to a stranger",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtED5tqK9+pdXdSDcD5LpDASAlhGGbgCr/1QBLufvTt6QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgIAAQwCAAAAAGXNHQAAAAA=",
+      "lookupTables": {},
+      "deltas": [
+        {
+          "owner": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "asset": "SOL",
+          "before": "50000000000",
+          "after": "49500000000",
+          "change": "-500000000"
+        }
+      ],
+      "simulation": {
+        "succeeded": true,
+        "errorDescription": null
+      },
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-007"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-007",
+            "severity": "warning",
+            "title": "Large transfer to an address you have not used",
+            "detail": "500000000 lamports would go to 5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE.",
+            "evidence": {
+              "destination": "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE",
+              "asset": "SOL",
+              "amount": "500000000"
+            }
+          }
+        ],
+        "score": 20,
+        "verdict": "caution",
+        "explanation": "Review this transaction carefully before signing.\nYou send 0.5 SOL.\nLarge transfer to an address you have not used: 500000000 lamports would go to 5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE."
+      }
+    },
+    {
+      "name": "token 2022 permanent delegate initialisation",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vulCnrLtsS3Idh0EoY8Gr6aXZm0mtTPk7M8+REDodz1zQbd9uHudY/eGEJdvORszdq2GvxNg7kNJ/69+SjYoYv8p9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgEBASM=",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-008"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-008",
+            "severity": "critical",
+            "title": "Risky Token-2022 extension",
+            "detail": "This instruction gives a permanent delegate the power to move or burn any holder's tokens.",
+            "evidence": {
+              "kind": "initialize-permanent-delegate"
+            }
+          }
+        ],
+        "score": 60,
+        "verdict": "danger",
+        "explanation": "Do not sign this transaction.\nRisky Token-2022 extension: This instruction gives a permanent delegate the power to move or burn any holder's tokens."
+      }
+    },
+    {
+      "name": "transfer of a token with a transfer hook",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIFzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6JHJj0yQ+QoxEtTSDKyBmYeGD+ypovJnR8vjVJ83B2PtpQp6y7bEtyHYdBKGPBq+ml2ZtJrUz5OzPPkRA6Hc9c0G3fbh7nWP3hhCXbzkbM3athr8TYO5DSf+vfko2KGL/KfTzAmgk/EUbsg9HVzYcG88guX/yTmsN0jCIhHhdzDcAQQEAQMCAAoMCgAAAAAAAAAG",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": [
+          {
+            "mint": "C7FYECDdroHNSD4rWhJ6f1xtmHJxorqmZh1pwbbHjb8Y",
+            "tokenProgram": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+            "extensions": [
+              "transfer-hook"
+            ]
+          }
+        ]
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-008"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-008",
+            "severity": "warning",
+            "title": "Token has a risky extension",
+            "detail": "Token C7FYECDdroHNSD4rWhJ6f1xtmHJxorqmZh1pwbbHjb8Y runs another program on every transfer of this token.",
+            "evidence": {
+              "mint": "C7FYECDdroHNSD4rWhJ6f1xtmHJxorqmZh1pwbbHjb8Y",
+              "extension": "transfer-hook"
+            }
+          }
+        ],
+        "score": 20,
+        "verdict": "caution",
+        "explanation": "Review this transaction carefully before signing.\nToken has a risky extension: Token C7FYECDdroHNSD4rWhJ6f1xtmHJxorqmZh1pwbbHjb8Y runs another program on every transfer of this token."
+      }
+    },
+    {
+      "name": "duplicate and excessive compute budget",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIEzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtc281nXmJH67KYw9HVx9Zpnhyhtk6okVpZwLXCIuv4lgMGRm/lIRcy/+ytunLDm+e8jOW7xfcSayxDmzpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACn08wJoJPxFG7IPR1c2HBvPILl/8k5rDdIwiIR4Xcw3AQCAAUCYOMWAAIABQJADQMAAgAJA0BUiQAAAAAAAwIAAQwCAAAAQEIPAAAAAAA=",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-009"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-009",
+            "severity": "warning",
+            "title": "Unusual compute budget",
+            "detail": "In this transaction the compute budget is set more than once, and the priority fee price is far above normal levels, and the compute limit exceeds what the network allows.",
+            "evidence": {
+              "anomalyCount": 3
+            }
+          }
+        ],
+        "score": 20,
+        "verdict": "caution",
+        "explanation": "Review this transaction carefully before signing.\nUnusual compute budget: In this transaction the compute budget is set more than once, and the priority fee price is far above normal levels, and the compute limit exceeds what the network allows."
+      }
+    },
+    {
+      "name": "lookup tables that could not be read",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQABAs8JBXCSzafqbdfoM9I+6gHOoTjfgleGh0VXLXJX5f77AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACn08wJoJPxFG7IPR1c2HBvPILl/8k5rDdIwiIR4Xcw3AEBAgACDAIAAABAQg8AAAAAAAFHOh95pBhZ8joYbWKe4hdJvTe0+rLZNeHhvUgD40fxBgEAAA==",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-010"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-010",
+            "severity": "warning",
+            "title": "Some accounts are hidden behind lookup tables",
+            "detail": "The lookup tables could not be read, so part of this transaction cannot be reviewed.",
+            "evidence": {
+              "tables": "5o3MLzw2WFL8rM9XgZxnVQkDFjFfMYtJfgaGJarrqt9T"
+            }
+          }
+        ],
+        "score": 20,
+        "verdict": "caution",
+        "explanation": "Review this transaction carefully before signing.\nSome accounts are hidden behind lookup tables: The lookup tables could not be read, so part of this transaction cannot be reviewed."
+      }
+    },
+    {
+      "name": "most accounts come from lookup tables",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQABAs8JBXCSzafqbdfoM9I+6gHOoTjfgleGh0VXLXJX5f77AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACn08wJoJPxFG7IPR1c2HBvPILl/8k5rDdIwiIR4Xcw3AMBAgACDAIAAABAQg8AAAAAAAECAAMMAgAAAEBCDwAAAAAAAQIABAwCAAAAQEIPAAAAAAABRzofeaQYWfI6GG1inuIXSb03tPqy2TXh4b1IA+NH8QYDAAECAA==",
+      "lookupTables": {
+        "5o3MLzw2WFL8rM9XgZxnVQkDFjFfMYtJfgaGJarrqt9T": [
+          "BzuiM3J9v8BrTLUC79HJNjEo2yVuH9UJpDjatsaesPE6",
+          "DiJ6hqWnmreNwq9SZ2rj4VYF3ojsqY623zuxk99NvmTv",
+          "hM6YFjCBwG6ZwgGpNgns9PjynZ3LrpbSsmjNtsNuC7w"
+        ]
+      },
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-010"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-010",
+            "severity": "warning",
+            "title": "Most accounts come from lookup tables",
+            "detail": "Most of the accounts in this transaction are not written in the transaction itself.",
+            "evidence": {
+              "lookedUpCount": 3,
+              "sharePercent": 60
+            }
+          }
+        ],
+        "score": 20,
+        "verdict": "caution",
+        "explanation": "Review this transaction carefully before signing.\nMost accounts come from lookup tables: Most of the accounts in this transaction are not written in the transaction itself."
+      }
+    },
+    {
+      "name": "wallet account assigned to another program",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAECzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKfTzAmgk/EUbsg9HVzYcG88guX/yTmsN0jCIhHhdzDcAQEBACQBAAAA3ZiRE0HZ+3siO1evpxH7m76OO3YJoHkkRbyVONxuF4o=",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-011"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-011",
+            "severity": "critical",
+            "title": "Your wallet account is handed to another program",
+            "detail": "Assigning EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE to Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97 lets that program take control of the account.",
+            "evidence": {
+              "account": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+              "newOwner": "Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97"
+            }
+          }
+        ],
+        "score": 60,
+        "verdict": "danger",
+        "explanation": "Do not sign this transaction.\nYour wallet account is handed to another program: Assigning EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE to Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97 lets that program take control of the account."
+      }
+    },
+    {
+      "name": "mandate agent rotation",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vumlQaWS9emyTDL8cr5SZ2Ln3w20X1YxkqIcujzI3V+LLWUL7+jQldpVBBWlpKMdf0V9RVmTA0lIz7LYKYOeB6Wp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgIAASi2W5Nrmy+WsFpAtstE/HEAq3tYuh+VeJ8bck6bdLQGWHeh0tX2A+MH",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-012"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-012",
+            "severity": "warning",
+            "title": "Changes an agent mandate",
+            "detail": "This rotate agent changes what an agent is allowed to do with your funds.",
+            "evidence": {
+              "kind": "rotate-agent"
+            }
+          }
+        ],
+        "score": 20,
+        "verdict": "caution",
+        "explanation": "Review this transaction carefully before signing.\nChanges an agent mandate: This rotate agent changes what an agent is allowed to do with your funds."
+      }
+    },
+    {
+      "name": "mandate revoke is informational",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vumlQaWS9emyTDL8cr5SZ2Ln3w20X1YxkqIcujzI3V+LLWUL7+jQldpVBBWlpKMdf0V9RVmTA0lIz7LYKYOeB6Wp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgIAAQj8YYx3QyuxbA==",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": null,
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-012"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-012",
+            "severity": "info",
+            "title": "Revokes an agent mandate",
+            "detail": "The agent loses all spending authority.",
+            "evidence": {
+              "kind": "revoke-mandate"
+            }
+          }
+        ],
+        "score": 0,
+        "verdict": "safe",
+        "explanation": "No risks were found in this transaction.\nRevokes an agent mandate: The agent loses all spending authority."
+      }
+    },
+    {
+      "name": "simulation failure is a warning",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtc281nXmJH67KYw9HVx9Zpnhyhtk6okVpZwLXCIuv4lgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgIAAQwCAAAAQEIPAAAAAAA=",
+      "lookupTables": {},
+      "deltas": [],
+      "simulation": {
+        "succeeded": false,
+        "errorDescription": "InsufficientFundsForFee"
+      },
+      "context": {
+        "walletAddresses": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "knownAddresses": [
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+        ],
+        "mintInfo": []
+      },
+      "expected": {
+        "rulesetVersion": "1.0.0",
+        "ruleIds": [
+          "SV-013"
+        ],
+        "findings": [
+          {
+            "ruleId": "SV-013",
+            "severity": "warning",
+            "title": "The transaction fails in simulation",
+            "detail": "Simulation reported: InsufficientFundsForFee.",
+            "evidence": {
+              "error": "InsufficientFundsForFee"
+            }
+          }
+        ],
+        "score": 20,
+        "verdict": "caution",
+        "explanation": "Review this transaction carefully before signing.\nThe transaction fails in simulation: Simulation reported: InsufficientFundsForFee."
+      }
+    }
+  ]
+}

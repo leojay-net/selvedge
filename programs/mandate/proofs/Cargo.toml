@@ -8,3 +8,9 @@ publish = false
 path = "src/lib.rs"
 
 [workspace]
+
+[dev-dependencies]
+serde_json = "1.0.154"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }

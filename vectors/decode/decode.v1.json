@@ -1,0 +1,670 @@
+{
+  "schema": "selvedge-decode-vectors",
+  "version": 1,
+  "cases": [
+    {
+      "name": "legacy sol transfer",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtc281nXmJH67KYw9HVx9Zpnhyhtk6okVpZwLXCIuv4lgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgIAAQwCAAAAgLLmDgAAAAA=",
+      "lookupTables": {},
+      "expected": {
+        "version": "legacy",
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "11111111111111111111111111111111"
+        ],
+        "addressTableLookups": [],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "11111111111111111111111111111111"
+        ],
+        "instructions": [
+          {
+            "programId": "11111111111111111111111111111111",
+            "programLabel": "System Program",
+            "known": true,
+            "kind": "transfer",
+            "accounts": [
+              "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+              "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb"
+            ],
+            "details": {
+              "lamports": "250000000"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "usdc transfer with compute budget",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAMGzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6JHJj0yQ+QoxEtTSDKyBmYeGD+ypovJnR8vjVJ83B2PtAwZGb+UhFzL/7K26csOb57yM5bvF9xJrLEObOkAAAAA7RCyzkSFX8TqTPQE0KC0DK1/+zQGi2/G3eQYI3wAupwbd9uHXZaGT2cvhRs7reawctIXtX1s3kTqM9YV+/wCpp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwDAwAFAkANAwADAAkD6AMAAAAAAAAFBAEEAgAKDAAbtwAAAAAABg==",
+      "lookupTables": {},
+      "expected": {
+        "version": "legacy",
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+          "Ap6Nr45U9ZBtGTtYmLTqmD72a3oKubK3uwUztSNjBwrk",
+          "ComputeBudget111111111111111111111111111111",
+          "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        ],
+        "addressTableLookups": [],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+          "Ap6Nr45U9ZBtGTtYmLTqmD72a3oKubK3uwUztSNjBwrk",
+          "ComputeBudget111111111111111111111111111111",
+          "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        ],
+        "instructions": [
+          {
+            "programId": "ComputeBudget111111111111111111111111111111",
+            "programLabel": "Compute Budget",
+            "known": true,
+            "kind": "set-compute-unit-limit",
+            "accounts": [],
+            "details": {
+              "units": 200000
+            }
+          },
+          {
+            "programId": "ComputeBudget111111111111111111111111111111",
+            "programLabel": "Compute Budget",
+            "known": true,
+            "kind": "set-compute-unit-price",
+            "accounts": [],
+            "details": {
+              "microLamports": "1000"
+            }
+          },
+          {
+            "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            "programLabel": "SPL Token",
+            "known": true,
+            "kind": "transfer-checked",
+            "accounts": [
+              "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+              "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+              "Ap6Nr45U9ZBtGTtYmLTqmD72a3oKubK3uwUztSNjBwrk",
+              "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+            ],
+            "details": {
+              "amount": "12000000",
+              "decimals": 6
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "token 2022 transfer checked",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIFzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6JHJj0yQ+QoxEtTSDKyBmYeGD+ypovJnR8vjVJ83B2PtO0Qss5EhV/E6kz0BNCgtAytf/s0Botvxt3kGCN8ALqcG3fbh7nWP3hhCXbzkbM3athr8TYO5DSf+vfko2KGL/KfTzAmgk/EUbsg9HVzYcG88guX/yTmsN0jCIhHhdzDcAQQEAQMCAAoMBQAAAAAAAAAG",
+      "lookupTables": {},
+      "expected": {
+        "version": "legacy",
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+          "Ap6Nr45U9ZBtGTtYmLTqmD72a3oKubK3uwUztSNjBwrk",
+          "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        ],
+        "addressTableLookups": [],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+          "Ap6Nr45U9ZBtGTtYmLTqmD72a3oKubK3uwUztSNjBwrk",
+          "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"
+        ],
+        "instructions": [
+          {
+            "programId": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+            "programLabel": "Token-2022",
+            "known": true,
+            "kind": "transfer-checked",
+            "accounts": [
+              "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+              "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+              "Ap6Nr45U9ZBtGTtYmLTqmD72a3oKubK3uwUztSNjBwrk",
+              "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+            ],
+            "details": {
+              "amount": "5",
+              "decimals": 6
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "unlimited approve",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAIEzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6EQPm2or36l1d1INwPkukMBICWEYZuAKv/VAEu5+9O3pBt324ddloZPZy+FGzut5rBy0he1fWzeROoz1hX7/AKmn08wJoJPxFG7IPR1c2HBvPILl/8k5rDdIwiIR4Xcw3AEDAwECAAkE//////////8=",
+      "lookupTables": {},
+      "expected": {
+        "version": "legacy",
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+          "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE",
+          "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        ],
+        "addressTableLookups": [],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+          "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE",
+          "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        ],
+        "instructions": [
+          {
+            "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            "programLabel": "SPL Token",
+            "known": true,
+            "kind": "approve",
+            "accounts": [
+              "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+              "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE",
+              "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+            ],
+            "details": {
+              "amount": "18446744073709551615"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "set authority account owner",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6Abd9uHXZaGT2cvhRs7reawctIXtX1s3kTqM9YV+/wCpp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgIBACMGAgFED5tqK9+pdXdSDcD5LpDASAlhGGbgCr/1QBLufvTt6Q==",
+      "lookupTables": {},
+      "expected": {
+        "version": "legacy",
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+          "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        ],
+        "addressTableLookups": [],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+          "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        ],
+        "instructions": [
+          {
+            "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            "programLabel": "SPL Token",
+            "known": true,
+            "kind": "set-authority",
+            "accounts": [
+              "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+              "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+            ],
+            "details": {
+              "authorityType": "account-owner",
+              "newAuthority": "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "close account",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEEzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6EQPm2or36l1d1INwPkukMBICWEYZuAKv/VAEu5+9O3pBt324ddloZPZy+FGzut5rBy0he1fWzeROoz1hX7/AKmn08wJoJPxFG7IPR1c2HBvPILl/8k5rDdIwiIR4Xcw3AEDAwECAAEJ",
+      "lookupTables": {},
+      "expected": {
+        "version": "legacy",
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+          "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE",
+          "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        ],
+        "addressTableLookups": [],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+          "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE",
+          "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        ],
+        "instructions": [
+          {
+            "programId": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+            "programLabel": "SPL Token",
+            "known": true,
+            "kind": "close-account",
+            "accounts": [
+              "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+              "5agXXw2KcEKsYfKv9u9fnSSvubZKuU89bgko9m3ydkRE",
+              "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+            ],
+            "details": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "associated token create idempotent and memo",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAYIzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vuRyY9MkPkKMRLU0gysgZmHhg/sqaLyZ0fL41SfNwdj7VzbzWdeYkfrspjD0dXH1mmeHKG2TqiRWlnAtcIi6/iWO0Qss5EhV/E6kz0BNCgtAytf/s0Botvxt3kGCN8ALqcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbd9uHXZaGT2cvhRs7reawctIXtX1s3kTqM9YV+/wCpjJclj04kifG7PRApFI4NgwtaE5na/xCEBI572Nvp+FkFSlNamSkhBk0k6HFg2jh8fDW13bySu4HkH6hAQQVEjafTzAmgk/EUbsg9HVzYcG88guX/yTmsN0jCIhHhdzDcAgYGAAECAwQFAQEHAAppbnZvaWNlLTQy",
+      "lookupTables": {},
+      "expected": {
+        "version": "legacy",
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "Ap6Nr45U9ZBtGTtYmLTqmD72a3oKubK3uwUztSNjBwrk",
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "11111111111111111111111111111111",
+          "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+          "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        ],
+        "addressTableLookups": [],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "Ap6Nr45U9ZBtGTtYmLTqmD72a3oKubK3uwUztSNjBwrk",
+          "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+          "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+          "11111111111111111111111111111111",
+          "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+          "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+        ],
+        "instructions": [
+          {
+            "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+            "programLabel": "Associated Token Account",
+            "known": true,
+            "kind": "create-idempotent",
+            "accounts": [
+              "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+              "Ap6Nr45U9ZBtGTtYmLTqmD72a3oKubK3uwUztSNjBwrk",
+              "7FUuM4M87XrsENLy94kAq6Mx3KzDwmDs5nNyYKyhFdbb",
+              "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU",
+              "11111111111111111111111111111111",
+              "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+            ],
+            "details": {}
+          },
+          {
+            "programId": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr",
+            "programLabel": "Memo",
+            "known": true,
+            "kind": "memo",
+            "accounts": [],
+            "details": {
+              "byteLength": 10
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "unknown program call",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vtKb4XmvzV5w9SRbtclhiJSKoR17niDUilOaTKdmYtI6N2YkRNB2ft7IjtXr6cR+5u+jjt2CaB5JEW8lTjcbheKp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgEBAwECAw==",
+      "lookupTables": {},
+      "expected": {
+        "version": "legacy",
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+          "Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97"
+        ],
+        "addressTableLookups": [],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK",
+          "Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97"
+        ],
+        "instructions": [
+          {
+            "programId": "Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97",
+            "programLabel": "Unknown program",
+            "known": false,
+            "kind": "unknown",
+            "accounts": [
+              "61ZoUCCjsg9Y9Vjvairwewen1QcmakSv8MDbjbEqxiJK"
+            ],
+            "details": {
+              "dataByteLength": 3
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "system assign",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAECzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKfTzAmgk/EUbsg9HVzYcG88guX/yTmsN0jCIhHhdzDcAQEBACQBAAAA3ZiRE0HZ+3siO1evpxH7m76OO3YJoHkkRbyVONxuF4o=",
+      "lookupTables": {},
+      "expected": {
+        "version": "legacy",
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "11111111111111111111111111111111"
+        ],
+        "addressTableLookups": [],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "11111111111111111111111111111111"
+        ],
+        "instructions": [
+          {
+            "programId": "11111111111111111111111111111111",
+            "programLabel": "System Program",
+            "known": true,
+            "kind": "assign",
+            "accounts": [
+              "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+            ],
+            "details": {
+              "owner": "Fv22rYPBpRzYN5ZBKEJukbyA9urLSEdLFGjmszxyjz97"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "mandate spend",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAED46Uv+ps2ustEcww27DrcUN+acsrYcJJoCtzt03lrpC6mlQaWS9emyTDL8cr5SZ2Ln3w20X1YxkqIcujzI3V+LLWUL7+jQldpVBBWlpKMdf0V9RVmTA0lIz7LYKYOeB6Wp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgIAASDyzf9XZdn1OYCEHgAAAAAAAQAAAAAAAAAEAAAAAAAAAA==",
+      "lookupTables": {},
+      "expected": {
+        "version": "legacy",
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "GKde7u47PhNVwhWzByTHcpag81Tst9Ms3oCNHzM1shED",
+        "requiredSigners": [
+          "GKde7u47PhNVwhWzByTHcpag81Tst9Ms3oCNHzM1shED"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "GKde7u47PhNVwhWzByTHcpag81Tst9Ms3oCNHzM1shED",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs",
+          "DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd"
+        ],
+        "addressTableLookups": [],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "GKde7u47PhNVwhWzByTHcpag81Tst9Ms3oCNHzM1shED",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs",
+          "DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd"
+        ],
+        "instructions": [
+          {
+            "programId": "DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd",
+            "programLabel": "Selvedge Mandate",
+            "known": true,
+            "kind": "spend",
+            "accounts": [
+              "GKde7u47PhNVwhWzByTHcpag81Tst9Ms3oCNHzM1shED",
+              "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+            ],
+            "details": {
+              "amount": "2000000",
+              "toolId": "1",
+              "expectedNonce": "4"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "mandate revoke",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vumlQaWS9emyTDL8cr5SZ2Ln3w20X1YxkqIcujzI3V+LLWUL7+jQldpVBBWlpKMdf0V9RVmTA0lIz7LYKYOeB6Wp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgIAAQj8YYx3QyuxbA==",
+      "lookupTables": {},
+      "expected": {
+        "version": "legacy",
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs",
+          "DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd"
+        ],
+        "addressTableLookups": [],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs",
+          "DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd"
+        ],
+        "instructions": [
+          {
+            "programId": "DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd",
+            "programLabel": "Selvedge Mandate",
+            "known": true,
+            "kind": "revoke-mandate",
+            "accounts": [
+              "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+              "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+            ],
+            "details": {}
+          }
+        ]
+      }
+    },
+    {
+      "name": "mandate rotate agent",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAEDzwkFcJLNp+pt1+gz0j7qAc6hON+CV4aHRVctclfl/vumlQaWS9emyTDL8cr5SZ2Ln3w20X1YxkqIcujzI3V+LLWUL7+jQldpVBBWlpKMdf0V9RVmTA0lIz7LYKYOeB6Wp9PMCaCT8RRuyD0dXNhwbzyC5f/JOaw3SMIiEeF3MNwBAgIAASi2W5Nrmy+WsFpAtstE/HEAq3tYuh+VeJ8bck6bdLQGWHeh0tX2A+MH",
+      "lookupTables": {},
+      "expected": {
+        "version": "legacy",
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs",
+          "DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd"
+        ],
+        "addressTableLookups": [],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs",
+          "DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd"
+        ],
+        "instructions": [
+          {
+            "programId": "DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd",
+            "programLabel": "Selvedge Mandate",
+            "known": true,
+            "kind": "rotate-agent",
+            "accounts": [
+              "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+              "CDGUfRkk72efvp4JC8k2JVMtUxhC4TqFNYd19jYLjnYs"
+            ],
+            "details": {
+              "newAgent": "75JvipBXyc71nsuTb2FWe9h5uWXtmNVujsdPE1WqYx4e"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "v0 with unresolved lookup table",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQABAs8JBXCSzafqbdfoM9I+6gHOoTjfgleGh0VXLXJX5f77AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACn08wJoJPxFG7IPR1c2HBvPILl/8k5rDdIwiIR4Xcw3AEBAgACDAIAAACAlpgAAAAAAAFHOh95pBhZ8joYbWKe4hdJvTe0+rLZNeHhvUgD40fxBgEAAA==",
+      "lookupTables": {},
+      "expected": {
+        "version": 0,
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "11111111111111111111111111111111"
+        ],
+        "addressTableLookups": [
+          {
+            "tableAddress": "5o3MLzw2WFL8rM9XgZxnVQkDFjFfMYtJfgaGJarrqt9T",
+            "writableIndexes": [
+              0
+            ],
+            "readonlyIndexes": []
+          }
+        ],
+        "lookupsResolved": false,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "11111111111111111111111111111111"
+        ],
+        "instructions": [
+          {
+            "programId": "11111111111111111111111111111111",
+            "programLabel": "System Program",
+            "known": true,
+            "kind": "transfer",
+            "accounts": [
+              "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+              "unresolved:2"
+            ],
+            "details": {
+              "lamports": "10000000"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "v0 with resolved lookup table",
+      "transactionBase64": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAQABAs8JBXCSzafqbdfoM9I+6gHOoTjfgleGh0VXLXJX5f77AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACn08wJoJPxFG7IPR1c2HBvPILl/8k5rDdIwiIR4Xcw3AEBAgACDAIAAACAlpgAAAAAAAFHOh95pBhZ8joYbWKe4hdJvTe0+rLZNeHhvUgD40fxBgEAAA==",
+      "lookupTables": {
+        "5o3MLzw2WFL8rM9XgZxnVQkDFjFfMYtJfgaGJarrqt9T": [
+          "BzuiM3J9v8BrTLUC79HJNjEo2yVuH9UJpDjatsaesPE6"
+        ]
+      },
+      "expected": {
+        "version": 0,
+        "signatureCount": 1,
+        "requiredSignerCount": 1,
+        "feePayer": "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+        "requiredSigners": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE"
+        ],
+        "recentBlockhash": "CJ8QCDZ4C4taAB4fmPE81MJcsqkBMxoSWa5ARFdvvZDD",
+        "staticAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "11111111111111111111111111111111"
+        ],
+        "addressTableLookups": [
+          {
+            "tableAddress": "5o3MLzw2WFL8rM9XgZxnVQkDFjFfMYtJfgaGJarrqt9T",
+            "writableIndexes": [
+              0
+            ],
+            "readonlyIndexes": []
+          }
+        ],
+        "lookupsResolved": true,
+        "resolvedAccountKeys": [
+          "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+          "11111111111111111111111111111111",
+          "BzuiM3J9v8BrTLUC79HJNjEo2yVuH9UJpDjatsaesPE6"
+        ],
+        "instructions": [
+          {
+            "programId": "11111111111111111111111111111111",
+            "programLabel": "System Program",
+            "known": true,
+            "kind": "transfer",
+            "accounts": [
+              "EwBNZzFxdjvp6hXbwJsuovs8epVL7oGN17pYyAG3uNrE",
+              "BzuiM3J9v8BrTLUC79HJNjEo2yVuH9UJpDjatsaesPE6"
+            ],
+            "details": {
+              "lamports": "10000000"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
