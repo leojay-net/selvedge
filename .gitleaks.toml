@@ -1,0 +1,13 @@
+title = "selvedge"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Public Solana addresses and test fixtures are not secrets"
+paths = [
+  '''docs/devnet-deployment\.json''',
+  '''docs/devnet-agent-run\.json''',
+  '''docs/devnet-scenarios\.json''',
+  '''apps/android/engine/src/test/.*''',
+]
