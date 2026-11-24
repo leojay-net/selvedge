@@ -22,7 +22,7 @@ interface Idl {
   errors: Array<{ code: number; name: string }>;
 }
 
-const idlPath = fileURLToPath(new URL("../../../target/idl/selvedge_mandate.json", import.meta.url));
+const idlPath = fileURLToPath(new URL("../../../programs/mandate/idl/selvedge_mandate.json", import.meta.url));
 const idl = JSON.parse(readFileSync(idlPath, "utf8")) as Idl;
 
 function camelCase(snake: string): string {
