@@ -31,3 +31,10 @@ Phase 0: bootstrap.
 ## Open risks
 
 - Devnet SOL balance on the deploy wallet is limited (airdrop rate-limited).
+
+## Phase 6 and 9 (web dashboard, brand)
+
+- [x] Brand assets: logo, favicon set, banner, self-hosted fonts
+- [x] Dashboard: overview, agents, mandate detail, activity reviewer, containment, proofs, kill switch
+- [x] Tests: 20 vitest (including live devnet program read), 30 Playwright at 360 and 1280 with axe, 12 live checks against the deployment
+- [x] Deployed: https://selvedge-dashboard.vercel.app

@@ -15,3 +15,6 @@ Each entry: decision, reason.
 11. **Mobile architecture follows the platform.** Selvedge for Android is an MWA wallet that sits between dapps and the Seed Vault, not an interceptor of other wallets (RESEARCH.md).
 12. **Self-hosted x402 facilitator inside the gateway** with the mandate program on the smart-wallet allowlist, because third-party facilitators reject unknown wrapper programs.
 13. **Commit identity** uses the GitHub noreply address so the owner's email is not published.
+14. **Dashboard builds with webpack, not Turbopack.** The engine and SDK import siblings with `.js` specifiers on `.ts` sources; Turbopack in Next 16.4.6 drops those re-exports, webpack resolves them through `resolve.extensionAlias`.
+15. **Dashboard rate limit is in memory.** It is per serverless instance. It bounds abuse of the review and RPC proxy routes without adding a datastore; documented in `apps/web/README.md`.
+16. **Dashboard deploys as Vercel project `selvedge-dashboard` under `zerroais-projects`** with root directory `apps/web` and source files outside the root enabled. The root `.gitignore` gained `.vercel`.
