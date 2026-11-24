@@ -1,0 +1,263 @@
+{
+  "$defs": {
+    "CanvasGenerator": {
+      "additionalProperties": false,
+      "properties": {
+        "color": {
+          "description": "#rrggbb",
+          "title": "Color",
+          "type": "string"
+        },
+        "height": {
+          "maximum": 2048,
+          "minimum": 16,
+          "title": "Height",
+          "type": "integer"
+        },
+        "kind": {
+          "const": "canvas",
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "width": {
+          "maximum": 2048,
+          "minimum": 16,
+          "title": "Width",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "name",
+        "width",
+        "height",
+        "color"
+      ],
+      "title": "CanvasGenerator",
+      "type": "object"
+    },
+    "StudioRecipe": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "params": {
+          "additionalProperties": true,
+          "title": "Params",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "title": "StudioRecipe",
+      "type": "object"
+    },
+    "StudioStep": {
+      "additionalProperties": false,
+      "properties": {
+        "args": {
+          "additionalProperties": true,
+          "title": "Args",
+          "type": "object"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "in": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            }
+          ],
+          "title": "In"
+        },
+        "op": {
+          "enum": [
+            "audio.denoise",
+            "audio.extract",
+            "audio.fade",
+            "audio.loudnorm",
+            "audio.mix",
+            "audio.silence",
+            "audio.trim",
+            "audio.voice_effect",
+            "doc.convert",
+            "doc.fill",
+            "doc.image",
+            "doc.replace",
+            "doc.table",
+            "export",
+            "image.adjust",
+            "image.composite",
+            "image.convert",
+            "image.crop",
+            "image.flip",
+            "image.grid",
+            "image.pad",
+            "image.resize",
+            "image.rotate",
+            "image.text",
+            "image.watermark",
+            "pdf.compress",
+            "pdf.form",
+            "pdf.merge",
+            "pdf.pages",
+            "pdf.redact",
+            "pdf.rotate",
+            "pdf.stamp",
+            "pptx.create",
+            "pptx.slide",
+            "preview.compare",
+            "preview.crop",
+            "preview.frames",
+            "preview.pages",
+            "preview.sheet",
+            "preview.thumb",
+            "video.chromakey",
+            "video.color",
+            "video.concat",
+            "video.crop",
+            "video.fade",
+            "video.frame",
+            "video.freeze",
+            "video.layers",
+            "video.lower_third",
+            "video.mask",
+            "video.mute",
+            "video.overlay",
+            "video.pip",
+            "video.reframe",
+            "video.reverse",
+            "video.sfx",
+            "video.slideshow",
+            "video.soundtrack",
+            "video.speed",
+            "video.stabilize",
+            "video.text",
+            "video.transition",
+            "video.trim",
+            "video.zoom"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "op",
+        "in"
+      ],
+      "title": "StudioStep",
+      "type": "object"
+    },
+    "ToneGenerator": {
+      "additionalProperties": false,
+      "properties": {
+        "frequency_hz": {
+          "maximum": 8000,
+          "minimum": 50,
+          "title": "Frequency Hz",
+          "type": "integer"
+        },
+        "kind": {
+          "const": "tone",
+          "title": "Kind",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "seconds": {
+          "maximum": 60.0,
+          "minimum": 0.1,
+          "title": "Seconds",
+          "type": "number"
+        }
+      },
+      "required": [
+        "kind",
+        "name",
+        "frequency_hz",
+        "seconds"
+      ],
+      "title": "ToneGenerator",
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Either explicit `steps` with `outputs`, or one `recipe`; never both.",
+  "properties": {
+    "generators": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "canvas": "#/$defs/CanvasGenerator",
+            "tone": "#/$defs/ToneGenerator"
+          },
+          "propertyName": "kind"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/CanvasGenerator"
+          },
+          {
+            "$ref": "#/$defs/ToneGenerator"
+          }
+        ]
+      },
+      "maxItems": 8,
+      "title": "Generators",
+      "type": "array"
+    },
+    "outputs": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 4,
+      "title": "Outputs",
+      "type": "array"
+    },
+    "recipe": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StudioRecipe"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/StudioStep"
+      },
+      "maxItems": 24,
+      "title": "Steps",
+      "type": "array"
+    },
+    "version": {
+      "const": 1,
+      "default": 1,
+      "title": "Version",
+      "type": "integer"
+    }
+  },
+  "title": "StudioSpec",
+  "type": "object"
+}
