@@ -1,0 +1,61 @@
+{
+    "CLI_package_name": "certora-cli",
+    "CLI_version": "8.20.3",
+    "branch": "main",
+    "certora_ci_client": null,
+    "conf": {
+        "files": [
+            "target/sbf-solana-solana/release/selvedge_mandate_certora.so"
+        ],
+        "rule": [
+            "revoked_mandate_never_authorizes_a_spend"
+        ],
+        "solana_inlining": [
+            "inlining.txt"
+        ],
+        "solana_summaries": [
+            "summaries.txt"
+        ]
+    },
+    "conf_path": "programs/mandate/certora/rules.conf",
+    "cwd_relative": "programs/mandate/certora",
+    "default_solc_version": "solc5.16",
+    "dirty": false,
+    "ecosystem": "SOLANA",
+    "group_id": null,
+    "jar_flag_info": [
+        "-globalTimeout,cloud_global_timeout,string",
+        "-coinbaseFeaturesMode,coinbase_mode,boolean",
+        "-coverageInfo,coverage_info,string",
+        "-enforceRequireReasonInCVL,enforce_require_reason,boolean",
+        "-userGlobalTimeout,global_timeout,string",
+        "-includeEmptyFallback,include_empty_fallback,boolean",
+        "-independentSatisfies,independent_satisfy,boolean",
+        "-b,loop_iter,string",
+        "-multiAssertCheck,multi_assert_check,boolean",
+        "-multipleCEX,multi_example,string",
+        "-noCalltraceStorageInformation,no_calltrace_storage_information,boolean",
+        "-assumeUnwindCond,optimistic_loop,boolean",
+        "-smt_preciseBitwiseOps,precise_bitwise_ops,boolean",
+        "-resourceFiles,prover_resource_files,list",
+        "-rule,rule,list",
+        "-ruleSanityChecks,rule_sanity,string",
+        "-saveVerifierResults,save_verifier_results,boolean",
+        "-ciMode,short_output,boolean",
+        "-t,smt_timeout,string",
+        "-smt_useBV,smt_use_bv,boolean",
+        "-json,tool_output,string",
+        "-unusedSummaryHardFail,unused_summary_hard_fail,string",
+        "-usePerRuleCache,use_per_rule_cache,string"
+    ],
+    "java_version": "17.0.17",
+    "main_spec": null,
+    "origin": "",
+    "python_version": "3.11.9",
+    "raw_args": [
+        "/tmp/certora-venv/bin/certoraSolanaProver",
+        "rules.conf"
+    ],
+    "revision": "3c02a609e233f41f157558a847e4c441f8957d47",
+    "timestamp": "1795485388.173814"
+}

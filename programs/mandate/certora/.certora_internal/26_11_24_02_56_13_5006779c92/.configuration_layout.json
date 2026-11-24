@@ -1,0 +1,84 @@
+[
+    {
+        "card_title": "general",
+        "content_type": "COMPLEX",
+        "content": [
+            {
+                "inner_title": "CLI Version",
+                "content_type": "FLAG",
+                "content": "8.20.3",
+                "doc_link": "",
+                "tooltip": "",
+                "unsound": false
+            },
+            {
+                "inner_title": "branch",
+                "content_type": "FLAG",
+                "content": "main",
+                "doc_link": "",
+                "tooltip": "",
+                "unsound": false
+            },
+            {
+                "inner_title": "revision",
+                "content_type": "FLAG",
+                "content": "3c02a609e233f41f157558a847e4c441f8957d47",
+                "doc_link": "",
+                "tooltip": "",
+                "unsound": false
+            }
+        ]
+    },
+    {
+        "card_title": "files",
+        "content_type": "SIMPLE",
+        "content": [
+            {
+                "inner_title": "files",
+                "content_type": "SIMPLE",
+                "content": [
+                    "target/sbf-solana-solana/release/selvedge_mandate_certora.so"
+                ],
+                "doc_link": "https://docs.certora.com/en/latest/docs/solana/options.html#files",
+                "tooltip": "",
+                "unsound": false
+            }
+        ]
+    },
+    {
+        "card_title": "options",
+        "content_type": "COMPLEX",
+        "content": [
+            {
+                "inner_title": "rule",
+                "content_type": "SIMPLE",
+                "content": [
+                    "revoked_mandate_never_authorizes_a_spend"
+                ],
+                "doc_link": "https://docs.certora.com/en/latest/docs/prover/cli/options.html#rule",
+                "tooltip": "",
+                "unsound": false
+            },
+            {
+                "inner_title": "solana_inlining",
+                "content_type": "SIMPLE",
+                "content": [
+                    "inlining.txt"
+                ],
+                "doc_link": "https://docs.certora.com/en/latest/docs/solana/options.html#solana-inlining",
+                "tooltip": "",
+                "unsound": false
+            },
+            {
+                "inner_title": "solana_summaries",
+                "content_type": "SIMPLE",
+                "content": [
+                    "summaries.txt"
+                ],
+                "doc_link": "https://docs.certora.com/en/latest/docs/solana/options.html#solana-summaries",
+                "tooltip": "",
+                "unsound": false
+            }
+        ]
+    }
+]

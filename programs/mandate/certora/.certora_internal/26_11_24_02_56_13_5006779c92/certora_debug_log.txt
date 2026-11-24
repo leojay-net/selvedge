@@ -1,0 +1,5 @@
+Saving last configuration file to .certora_internal/26_11_24_02_56_13_5006779c92/run.conf
+Copying /Users/mac/Desktop/CODE/hackathons/projects/selvedge/programs/mandate/certora/inlining.txt to .certora_internal/26_11_24_02_56_13_5006779c92/.certora_sources/inlining.txt
+Copying /Users/mac/Desktop/CODE/hackathons/projects/selvedge/programs/mandate/certora/summaries.txt to .certora_internal/26_11_24_02_56_13_5006779c92/.certora_sources/summaries.txt
+Copying /Users/mac/Desktop/CODE/hackathons/projects/selvedge/programs/mandate/certora/rules.conf to .certora_internal/26_11_24_02_56_13_5006779c92/.certora_sources/rules.conf
+Copying /Users/mac/Desktop/CODE/hackathons/projects/selvedge/programs/mandate/certora/target/sbf-solana-solana/release/selvedge_mandate_certora.so to .certora_internal/26_11_24_02_56_13_5006779c92/.certora_sources/target/sbf-solana-solana/release/selvedge_mandate_certora.so

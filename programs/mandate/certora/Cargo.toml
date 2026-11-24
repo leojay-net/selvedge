@@ -1,0 +1,17 @@
+[package]
+name = "selvedge-mandate-certora"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "lib"]
+path = "src/lib.rs"
+
+[dependencies]
+cvlr = "0.6.3"
+
+[features]
+certora = []
+
+[workspace]

@@ -39,4 +39,9 @@ Tool: Kani 0.68.0 (CBMC with CaDiCaL), run on Apple Silicon, `cargo kani --harne
 
 ## Certora Solana Prover
 
-Attempted; see the section appended below by the verification run.
+Attempted on 2026-11-24. Outcome: **the build and rule specification work; the prover run did not happen because it needs a Certora account key.**
+
+- `cargo-certora-sbf` 0.3.5 installed and `cargo certora-sbf --manifest-path programs/mandate/certora/Cargo.toml` built `selvedge_mandate_certora.so` against the same `src/logic` source, with `cvlr` 0.6.3.
+- The rule `revoked_mandate_never_authorizes_a_spend` (nondeterministic state and request, revoked set, `authorize_spend` must return an error) is written in `programs/mandate/certora/src/rules.rs`; the configuration is `programs/mandate/certora/rules.conf`.
+- `certoraSolanaProver rules.conf` (certora-cli 8.20.3) stops with: `The environment variable CERTORAKEY does not contain a Certora key. To get a free Certora key please visit https://www.certora.com/signup`. Creating that account is an owner action; no property is claimed as proved by Certora.
+- To run it once a key exists: `export CERTORAKEY=...; cd programs/mandate/certora && cargo certora-sbf && certoraSolanaProver rules.conf`.
