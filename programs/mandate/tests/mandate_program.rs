@@ -3,7 +3,7 @@
 
 mod support;
 
-use litesvm_token::{CreateAccount, MintTo};
+use litesvm_token::{CreateAccount, CreateMint, MintTo};
 use selvedge_mandate::error::MandateError;
 use solana_keypair::Keypair;
 use solana_signer::Signer;
@@ -488,6 +488,36 @@ fn spend_from_a_token_account_the_owner_does_not_hold_is_rejected() {
         send(&mut fixture.svm, &agent, &[], &[instruction]),
         MandateError::TokenAccountOwnerMismatch,
     );
+}
+
+#[test]
+fn spend_from_a_token_account_of_a_different_mint_is_rejected() {
+    let mut fixture = standard_fixture();
+    let foreign_mint = CreateMint::new(&mut fixture.svm, &fixture.owner)
+        .decimals(6)
+        .send()
+        .expect("foreign mint");
+    let foreign_owner_account = CreateAccount::new(&mut fixture.svm, &fixture.owner, &foreign_mint)
+        .owner(&fixture.owner.pubkey())
+        .send()
+        .expect("foreign token account");
+    let instruction = spend_instruction_with_accounts(
+        &fixture,
+        &fixture.agent.pubkey(),
+        1,
+        DEFAULT_TOOL_ID,
+        0,
+        &foreign_owner_account,
+        &fixture.payee_token_account,
+        &fixture.token_program,
+    );
+    let agent = fixture.agent.insecure_clone();
+    let outcome = send(&mut fixture.svm, &agent, &[], &[instruction]);
+    assert!(
+        outcome.is_err(),
+        "a token account of another mint must not be spendable"
+    );
+    assert_eq!(read_mandate(&fixture.svm, &fixture.mandate).nonce, 0);
 }
 
 #[test]

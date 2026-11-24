@@ -10,6 +10,7 @@ import { StudioServiceError, type StudioPort } from "./studioClient.js";
 const REQUEST_BODY_LIMIT = "16kb";
 const RATE_LIMIT_WINDOW_MILLISECONDS = 60_000;
 const RATE_LIMIT_MAXIMUM_REQUESTS = 120;
+const QUOTE_RATE_LIMIT_MAXIMUM_REQUESTS = 12;
 const MAXIMUM_REQUEST_TEXT_LENGTH = 2000;
 const PAYMENT_TIMEOUT_SECONDS = 60;
 const PAID_ROUTE_PATTERN = /^\/studio\/quotes\/([0-9a-fA-F-]{36})\/job$/;
@@ -24,7 +25,7 @@ export interface GatewayDependencies {
   readonly quoteStore: QuoteStore;
 }
 
-function createRateLimiter(): (request: Request, response: Response, next: NextFunction) => void {
+function createRateLimiter(maximumRequests: number): (request: Request, response: Response, next: NextFunction) => void {
   const hitsByAddress = new Map<string, { windowStart: number; hits: number }>();
   return (request, response, next) => {
     const now = Date.now();
@@ -36,7 +37,7 @@ function createRateLimiter(): (request: Request, response: Response, next: NextF
       return;
     }
     entry.hits += 1;
-    if (entry.hits > RATE_LIMIT_MAXIMUM_REQUESTS) {
+    if (entry.hits > maximumRequests) {
       response.status(429).json({ error: { code: "rate_limited", message: "Too many requests" } });
       return;
     }
@@ -52,13 +53,22 @@ export function createGatewayApp(dependencies: GatewayDependencies): Express {
   const { config, facilitatorClient, studio, quoteStore } = dependencies;
   const app = express();
   app.disable("x-powered-by");
-  app.use(createRateLimiter());
+  app.use(createRateLimiter(RATE_LIMIT_MAXIMUM_REQUESTS));
+  app.use("/studio/quote", createRateLimiter(QUOTE_RATE_LIMIT_MAXIMUM_REQUESTS));
   app.use(express.json({ limit: REQUEST_BODY_LIMIT }));
 
   const resourceServer = new x402ResourceServer(facilitatorClient).register(
     config.X402_NETWORK as `${string}:${string}`,
     new ExactSvmServerScheme({ rpcUrl: config.SOLANA_RPC_URL }),
   );
+
+  app.use("/studio/quotes/:quoteId/job", (request: Request, response: Response, next: NextFunction) => {
+    if (quoteStore.get(String(request.params.quoteId)) === undefined) {
+      response.status(404).json(errorEnvelope("quote_not_found", "The quote is unknown or expired"));
+      return;
+    }
+    next();
+  });
 
   app.use(
     paymentMiddleware(

@@ -155,7 +155,7 @@ describe("paid gateway", () => {
     });
     expect(malformed.status).toBe(400);
     const unknown = await fetch(`${baseUrl}/studio/quotes/00000000-0000-0000-0000-000000000000/job`, { method: "POST" });
-    expect([402, 404, 500]).toContain(unknown.status);
+    expect(unknown.status).toBe(404);
   });
 
   it("refuses job ids that could traverse upstream paths", async () => {
