@@ -1,19 +1,21 @@
 # Progress
 
-Status at usage-limit stop, 2026-11-24. Read this first when resuming.
+Status 2026-11-24, tag v0.1.0 released at https://github.com/leojay-net/selvedge/releases/tag/v0.1.0 (APK sha256 eacb6111...8b74, demo video 105.5 s).
 
-## Done, with evidence
-- Mandate program on devnet DDorK5hW2iufBzDi3mmpuiFW2mZT57jGFE2jewmp7pxd, deployment tx 4jzVfdb1... (README). 37 LiteSVM tests pass. 10 Kani harnesses pass (docs/VERIFICATION.md).
-- Certora: rule crate builds, prover blocked on account key (docs/BLOCKED.md).
-- Engine (345 tests), SDK (8), paid gateway (8), agent runtime (24), web unit (21) pass. `pnpm verify:evidence` re-checks 20 devnet signatures.
-- x402 payment through the mandate settled on devnet; injection refused at engine policy and at the mandate program; security agent revoked (docs/devnet-agent-run.json).
-- Studio service merged (PROVENANCE.md), web dashboard merged and deployed at https://selvedge-dashboard.vercel.app, Android branch merged up to commit 3d2b3d6.
-- README written with verified facts.
+## Definition of Done
+- [x] Program on devnet, deployment tx 4jzVfdb1... verified by `pnpm verify:evidence` (20 signatures).
+- [x] 37 program tests, 10 Kani proofs (docs/VERIFICATION.md). Certora attempted; prover blocked on account key (docs/BLOCKED.md).
+- [x] Engine vectors pass in TypeScript (345 tests) and Kotlin (324 vector cases). Property tests in packages/engine.
+- [x] Runtime adversarial suite (24 tests), every refusal attributed to a gate.
+- [x] x402 payment settled as a mandate spend on devnet (README).
+- [x] PROVENANCE.md and scans clean; gitleaks clean.
+- [x] Dashboard live, Playwright 360/1280 with axe (30 tests).
+- [~] Android: release APK built and installed on an emulator, 8 emulator tests pass; Seed Vault and MWA paths untested, software Test Wallet labelled.
+- [x] Devnet scenarios with signatures in README.
+- [x] README, docs, .env.example, LICENSE, banner, logo, favicon.
+- [x] Demo video 105.5 s (ffprobe), voice-over and burned captions; file is a release asset.
+- [x] Public repo pushed from leojay-net.
+- [ ] A further hardening pass after the final push.
 
-## Not done
-- Android: emulator instrumented tests, accessibility checks, signed release APK, README facts. The Android agent (ada72ea0ef95199a0) may still be running in .claude/worktrees; merge its branch worktree-agent-ada72ea0ef95199a0 when it commits.
-- Demo video: demo/script.txt, voice-over (106 s), film builder and plan exist; run build-film.mjs, tools/record-demo.mjs demo/plan.json, tools/mux-demo.sh, then ffprobe. Needs an Android clip for scene 3.
-- docs/SUBMISSION-CHECKLIST.md, DEMO-SCRIPT.md, CHANGELOG.
-- README run commands: program tests need target/deploy/selvedge_mandate.so built first (build command not documented yet).
-- Hardening loop final pass, clean-checkout full test rerun after the IDL fix, studio full pytest result (docs/logs/studio-pytest.log).
-- Push to public leojay-net/selvedge (run gh auth status first), tag v0.1.0, release with APK.
+## Owner steps
+Dev3pack dashboard acceptance, upload the video, submit the form, optional Certora key.
