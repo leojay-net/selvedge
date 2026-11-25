@@ -142,11 +142,14 @@ test("the attack game stops a stranger and awards the badge after every attack",
   await page.goto("/");
   await page.getByRole("button", { name: /Send funds to a stranger/ }).click();
   await expect(page.getByText(/Stopped by Engine policy/)).toBeVisible();
+  await page.getByRole("button", { name: /Send funds to a stranger/ }).click();
+  await expect(page.getByText("1 / 5")).toBeVisible();
   for (const attackName of [/Spend past the cap/, /Replay an old payment/, /Ask for unlimited access/, /Pay after you pulled the plug/]) {
     await page.getByRole("button", { name: attackName }).click();
     await expect(page.getByText(/Stopped by/)).toBeVisible();
   }
   await expect(page.getByText("Vault intact. Nothing got through.")).toBeVisible();
+  await expect(page.getByText("5 / 5")).toBeVisible();
 });
 
 test("allowing the stranger in the mandate lets the attack through and costs funds", async ({ page }) => {

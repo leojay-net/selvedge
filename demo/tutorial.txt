@@ -1,0 +1,35 @@
+This is Selvedge, a quick tutorial. Selvedge lets AI agents spend money on Solana, but only inside rules you set. Let's walk through the site, then the Android app.
+
+The landing page tells the story. Meet Scout, an agent with a wallet. Scroll down, and you see the problem: one hidden sentence on a web page tells Scout to send money to a stranger, and Scout obeys.
+
+The fix is a mandate. On the left, you write the rules: a daily spending cap, the payees Scout may pay, and a switch to revoke it all.
+
+Now try to break it. Click "Send funds to a stranger". Watch it travel through the gates. The engine policy stops it at once: the payee is not on the list.
+
+Tick "Compromise the agent", so Scout skips its own checks, and attack again. This time the mandate program on Solana refuses it. The money never moves.
+
+Ask for unlimited access, and the third gate takes over: a dangerous transaction needs your fingerprint on the phone. Try every attack, and the scoreboard awards the vault badge.
+
+Further down is the proof. These numbers are read live from devnet, next to the Kani proofs and test counts. The refusal you just watched has a real transaction on chain.
+
+Open Agents to see every live mandate on devnet, with its cap, what it has spent, and its status. Click one for the full detail.
+
+Each mandate shows its rules, its payees, and a kill switch. With your wallet connected, one click revokes it.
+
+Activity is the security review. Paste any transaction, and Selvedge decodes it, simulates it, and explains what it would do before you sign.
+
+Containment is the record of a real agent run. A hidden instruction tried to pay a stranger, and each refusal shows which gate stopped it.
+
+Now the phone. Get the app only downloads on an Android phone. On a desktop it tells you to open the page on your phone.
+
+On Android, open Selvedge and choose a wallet. On the emulator we use the test wallet, which the app clearly labels as a software key.
+
+Tap New agent, name it, and set its cap. Scout now appears in your agent list with its mandate, marked safe.
+
+Open the agent to edit its mandate: the cap, the period, the expiry, the allowed programs and payees.
+
+Then review a transaction. Paste it, and tap Review. This one hands a stranger unlimited access to your tokens, so Selvedge shows a red danger warning.
+
+The only way past this screen is your fingerprint. This phone has none enrolled, so the transaction stays blocked.
+
+That's Selvedge: agents that can only do what you allowed. It's open source, and every transaction you saw is on devnet.

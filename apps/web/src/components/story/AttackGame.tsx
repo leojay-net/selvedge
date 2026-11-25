@@ -58,7 +58,7 @@ export function AttackGame(): ReactElement {
   const [step, setStep] = useState(0);
   const [log, setLog] = useState<readonly LogEntry[]>([]);
   const [attemptedHostile, setAttemptedHostile] = useState<ReadonlySet<string>>(new Set());
-  const [stoppedCount, setStoppedCount] = useState(0);
+  const [stoppedAttacks, setStoppedAttacks] = useState<ReadonlySet<string>>(new Set());
   const [lostUsdc, setLostUsdc] = useState(0);
   const timerRef = useRef<number | null>(null);
   const logKeyRef = useRef(0);
@@ -80,7 +80,7 @@ export function AttackGame(): ReactElement {
     if (attack.hostile) {
       setAttemptedHostile((current) => new Set(current).add(attack.id));
       if (result.settled) setLostUsdc((current) => current + attack.amountUsdc);
-      else setStoppedCount((current) => current + 1);
+      else setStoppedAttacks((current) => new Set(current).add(attack.id));
     }
     logKeyRef.current += 1;
     const entry: LogEntry = { key: logKeyRef.current, title: attack.title, settled: result.settled, reason: result.reason };
@@ -118,7 +118,7 @@ export function AttackGame(): ReactElement {
     setStep(0);
     setLog([]);
     setAttemptedHostile(new Set());
-    setStoppedCount(0);
+    setStoppedAttacks(new Set());
     setLostUsdc(0);
     setRevoked(false);
   }, []);
@@ -245,7 +245,7 @@ export function AttackGame(): ReactElement {
           <div>
             <dt>Attacks stopped</dt>
             <dd className="tabular">
-              {stoppedCount} / {hostileTotal}
+              {stoppedAttacks.size} / {hostileTotal}
             </dd>
           </div>
           <div>
