@@ -1,0 +1,39 @@
+AI agents are starting to pay for things on their own: data, compute, and other agents' services. On Solana, with x402, a payment takes a second. But today you have two bad choices.
+
+Give the agent your keys, and one poisoned web page can drain your wallet. Or approve every payment yourself, and the agent is no longer autonomous.
+
+Selvedge is the third choice. You give each agent a mandate on Solana: how much it may spend, who it may pay, and for how long. The agent works freely inside it, and nothing outside it can happen, even if the agent is fully compromised.
+
+That unlocks agents for real money: people handing chores to an assistant, teams running procurement and trading bots, and services that sell to agents over x402. They get the speed of autonomy without giving away the keys.
+
+Three independent gates enforce it: a policy check in the agent, the mandate program on Solana, proven with Kani, and your fingerprint on your phone for anything dangerous. Let me show you.
+
+This is the live site. A web page hides one sentence telling Scout, our agent, to pay a stranger. An agent holding the keys simply obeys.
+
+Here you write Scout's mandate, then attack it. Paying a stranger is stopped by the policy check before anything is built.
+
+Now compromise the agent so it skips that check, and attack again. The program on Solana still refuses. The money never moves.
+
+Ask for unlimited access, and the third gate demands your fingerprint. Overspend, replay an old payment, or pay after the mandate is revoked: every single attack fails, and nothing leaves the vault.
+
+This is not a mock. These numbers are read live from devnet, and the refusal you just saw has a real transaction on chain.
+
+Open Agents, and every live mandate on devnet is listed with its cap, what it has spent so far, and its status.
+
+Each mandate shows its rules and its payees, and with your wallet connected, one click on the kill switch revokes it.
+
+Before you sign anything, Selvedge decodes and simulates the transaction, and explains it in plain English.
+
+This is a real agent run. A hidden instruction tried to pay a stranger, and every refusal names the gate that stopped it.
+
+On Android, Selvedge is your wallet. It is built for Solana Mobile, and on this emulator it uses a clearly labelled software test key instead of the Seed Vault.
+
+Create an agent in a few taps: give it a name and its key, set a daily cap, and list the only payees it may pay. Scout now appears with its mandate, marked safe.
+
+Open the agent to tighten its mandate at any time: the cap, the period, the expiry, and the allowed programs and payees, or revoke it outright.
+
+Now paste a transaction to review. This one quietly hands a stranger unlimited access to your tokens, so Selvedge decodes it, simulates it, and stops on a red warning.
+
+The only way past this screen is your fingerprint. This phone has none enrolled, so the transaction stays blocked.
+
+Selvedge. Agents that can only do what you allowed. Live on devnet, and open source.

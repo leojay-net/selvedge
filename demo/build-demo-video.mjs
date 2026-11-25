@@ -1,13 +1,15 @@
 /**
- * Builds the tutorial recording inputs: a stage page that plays the Android emulator clips
- * inside a phone frame, and the plan that record-demo.mjs follows segment by segment.
+ * Builds the demo video recording inputs: the pitch scenes, a stage page that plays the
+ * Android emulator clips inside a phone frame, and the plan that record-demo.mjs follows
+ * paragraph by paragraph of demo/pitch.txt.
  *
- * Usage: node demo/build-tutorial.mjs
+ * Usage: node demo/build-demo-video.mjs
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { PITCH_SCENE_COUNT, buildPitchPage } from "./pitch-scenes.mjs";
 
 const DEMO_DIRECTORY = dirname(fileURLToPath(import.meta.url));
 const SITE_URL = "https://selvedge-dashboard.vercel.app";
@@ -15,8 +17,8 @@ const LIVE_MANDATE_ADDRESS = "HDuEGxujDAbpBLBMRAisuLawC4PLoFAszMoqfDQ9gWc2";
 const FONT_DIRECTORY = resolve(DEMO_DIRECTORY, "../apps/web/public/fonts");
 const RAW_CLIP_DIRECTORY = resolve(DEMO_DIRECTORY, "build/android-clips2");
 const CLIP_DIRECTORY = resolve(DEMO_DIRECTORY, "build/android-cut");
-const TIMINGS_RELATIVE_PATH = "build/tutorial_segments/timings.json";
-const ATTACK_RUN_MILLISECONDS = 2900;
+const TIMINGS_RELATIVE_PATH = "build/pitch-take/timings.json";
+const ATTACK_RUN_MILLISECONDS = 2650;
 const DEFAULT_MAXIMUM_PAUSE_SECONDS = 1.2;
 const DECODE_VECTORS_PATH = resolve(DEMO_DIRECTORY, "../vectors/decode/decode.v1.json");
 
@@ -118,15 +120,16 @@ function attackClick(attackTitle) {
   return { click: `button.attack-button:has-text("${attackTitle}")` };
 }
 
-function buildPlan(stagePath) {
+function buildPlan(stagePath, pitchPath) {
   const stageUrl = `file://${stagePath}`;
+  const pitchUrl = `file://${pitchPath}`;
   const dangerTransaction = readDangerTransaction();
+  const pitchSegments = Array.from({ length: PITCH_SCENE_COUNT }, (_, sceneIndex) => ({ goto: pitchUrl, scene: sceneIndex }));
   const segments = [
-    { goto: `${SITE_URL}/` },
-    { section: ".injection", actions: [{ wait: 400 }] },
-    { section: ".game", actions: [{ wait: 3500 }, { setRange: { selector: "#cap-range", value: 40 } }, { wait: 1500 }, { setRange: { selector: "#cap-range", value: 25 } }] },
-    { actions: [{ wait: 2500 }, attackClick("Send funds to a stranger")] },
-    { actions: [{ click: ".game-toggle:has-text(\"Compromise the agent\") input" }, { wait: 1200 }, attackClick("Send funds to a stranger")] },
+    ...pitchSegments,
+    { goto: `${SITE_URL}/`, section: ".injection", actions: [{ wait: 400 }] },
+    { section: ".game", actions: [{ wait: 1200 }, attackClick("Send funds to a stranger")] },
+    { actions: [{ click: ".game-toggle:has-text(\"Compromise the agent\") input" }, { wait: 700 }, attackClick("Send funds to a stranger")] },
     {
       actions: [
         attackClick("Ask for unlimited access"),
@@ -138,16 +141,15 @@ function buildPlan(stagePath) {
         attackClick("Pay after you pulled the plug"),
       ],
     },
-    { section: ".stat-card", actions: [{ wait: 3500 }, { scrollBy: 380 }] },
+    { section: ".stat-card", actions: [{ wait: 3000 }, { scrollBy: 380 }] },
     { goto: `${SITE_URL}/agents` },
-    { goto: `${SITE_URL}/mandates/${LIVE_MANDATE_ADDRESS}`, actions: [{ wait: 3000 }, { scrollBy: 420 }] },
-    { goto: `${SITE_URL}/activity`, actions: [{ wait: 1200 }, { fill: { selector: "textarea", value: dangerTransaction } }, { wait: 800 }, { click: "button:has-text(\"Review transaction\")" }, { wait: 2500 }, { scrollBy: 360 }] },
-    { goto: `${SITE_URL}/containment`, actions: [{ wait: 4000 }, { scrollBy: 380 }] },
-    { goto: `${SITE_URL}/download` },
+    { goto: `${SITE_URL}/mandates/${LIVE_MANDATE_ADDRESS}`, actions: [{ wait: 2500 }, { scrollBy: 420 }] },
+    { goto: `${SITE_URL}/activity`, actions: [{ wait: 600 }, { fill: { selector: "textarea", value: dangerTransaction } }, { wait: 500 }, { click: "button:has-text(\"Review transaction\")" }, { wait: 1800 }, { scrollBy: 360 }] },
+    { goto: `${SITE_URL}/containment`, actions: [{ wait: 3500 }, { scrollBy: 380 }] },
     ...ANDROID_STEPS.map((step, stepIndex) => ({ goto: stageUrl, scene: stepIndex })),
     { goto: `${SITE_URL}/`, section: ".chapter-final" },
   ];
-  return { url: `${SITE_URL}/`, timings: TIMINGS_RELATIVE_PATH, segments };
+  return { url: pitchUrl, timings: TIMINGS_RELATIVE_PATH, segments };
 }
 
 function main() {
@@ -159,13 +161,15 @@ function main() {
   }));
   const stagePath = resolve(DEMO_DIRECTORY, "android-stage.html");
   writeFileSync(stagePath, buildStagePage(steps));
-  const plan = buildPlan(stagePath);
+  const pitchPath = resolve(DEMO_DIRECTORY, "pitch-stage.html");
+  writeFileSync(pitchPath, buildPitchPage(FONT_DIRECTORY));
+  const plan = buildPlan(stagePath, pitchPath);
   const timings = JSON.parse(readFileSync(resolve(DEMO_DIRECTORY, TIMINGS_RELATIVE_PATH), "utf8"));
   if (timings.length !== plan.segments.length) {
     throw new Error(`script has ${timings.length} segments but the plan has ${plan.segments.length}`);
   }
-  writeFileSync(resolve(DEMO_DIRECTORY, "tutorial-plan.json"), JSON.stringify(plan, null, 2));
-  console.log(`wrote android-stage.html and tutorial-plan.json (${plan.segments.length} segments)`);
+  writeFileSync(resolve(DEMO_DIRECTORY, "demo-plan.json"), JSON.stringify(plan, null, 2));
+  console.log(`wrote pitch-stage.html, android-stage.html and demo-plan.json (${plan.segments.length} segments)`);
 }
 
 main();

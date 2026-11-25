@@ -27,16 +27,18 @@ ffprobe -v error -show_entries format=duration -of csv=p=0 ../selvedge-demo.mp4
 
 Captions are burned in by the recorder from the same text. The final duration must be under 180 s.
 
-## Tutorial video (current)
+## Demo video (current)
 
-Script: `demo/tutorial.txt` (18 segments). The Android section is recorded from the release APK on the `Medium_Phone_API_36.1` emulator with `adb screenrecord`, then each clip's idle pauses are capped by `demo/compress-pauses.py`. The emulator had no fingerprint enrolled, so the veto clip shows the app's real "No fingerprint or face is enrolled" refusal.
+Script: `demo/pitch.txt`, 20 paragraphs: five pitch paragraphs (the shift, the problem, the answer, who it is for, the three gates), then the demo. The whole script is spoken in one request by `demo/single-take.py` so the video has one consistent voice; `demo/align-take.py` then cuts it into per-paragraph timings from a faster-whisper word transcript. The Android section is recorded from the release APK on the `Medium_Phone_API_36.1` emulator with `adb screenrecord`, and `demo/compress-pauses.py` caps each clip's idle pauses. The emulator had no fingerprint enrolled, so the veto clip shows the app's real "No fingerprint or face is enrolled" refusal.
 
 ```sh
-python3 ../../tools/voiceover.py demo/tutorial.txt demo/build/tutorial.mp3
-node demo/build-tutorial.mjs
-cd demo && node ../../../tools/record-demo.mjs tutorial-plan.json
-cp build/tutorial.mp3 voiceover.mp3 && sh ../../../tools/mux-demo.sh . ../../selvedge-tutorial.mp4
-ffprobe -v error -show_entries format=duration -of csv=p=0 ../../selvedge-tutorial.mp4
+python3 demo/single-take.py demo/pitch.txt demo/build/pitch-take/full.mp3
+python3 transcribe.py demo/build/pitch-take/full.mp3 demo/build/pitch-take/words.json   # faster-whisper 1.2.1, base.en, word timestamps
+python3 demo/align-take.py demo/pitch.txt demo/build/pitch-take/full.mp3 demo/build/pitch-take/words.json demo/build/pitch-take/timings.json
+node demo/build-demo-video.mjs
+cd demo && node ../../../tools/record-demo.mjs demo-plan.json
+cp build/pitch-take/full.mp3 voiceover.mp3 && sh ../../../tools/mux-demo.sh . ../../selvedge-demo.mp4
+ffprobe -v error -show_entries format=duration -of csv=p=0 ../../selvedge-demo.mp4
 ```
 
-Last run: 168.6 s.
+Last run: 162.9 s.
